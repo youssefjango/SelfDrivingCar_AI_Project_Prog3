@@ -21,6 +21,7 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -36,6 +37,7 @@ public class SelfDrivingCar extends Application {
     Rectangle car1 = new Rectangle(90, 90);
     boolean pause = true;
     ArrayList<Line> bordersList = new ArrayList();
+    ArrayList<Shape> raceTrack = new ArrayList();
     ArrayList<Car> carList = new ArrayList();
     int carCrashed = 0;
 
@@ -170,6 +172,7 @@ public class SelfDrivingCar extends Application {
 
         primaryStage.setTitle("Self Driving Cars");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
         //==========================================================================================================================================
@@ -239,6 +242,16 @@ public class SelfDrivingCar extends Application {
         finishLine.setStroke(Color.BLACK);
         finishLine.setFill(Color.TRANSPARENT);
 
+        //Adding lines of the track to an arrayList for collision purposes later on
+        raceTrack.add(line1);
+        raceTrack.add(line2);
+        raceTrack.add(line3);
+        raceTrack.add(line4);
+        raceTrack.add(firstTurn1);
+        raceTrack.add(firstTurn2);
+        raceTrack.add(secondturn1);
+        raceTrack.add(secondturn2);
+        
         //ADDING THE SHAPES TO THE CAR PANE FOR MAKING THE RACE TRACK
         carPane.getChildren().addAll(startPoint, line1, firstTurn1, firstTurn2, line2, secondturn1, secondturn2, line3, line4, finishLine);
         //==========================================================================================================================================
@@ -312,7 +325,6 @@ public class SelfDrivingCar extends Application {
 
                 carList.add(car);
             }
-            System.out.println(carList.size());
         });
 
         //==========================================================================================================================================

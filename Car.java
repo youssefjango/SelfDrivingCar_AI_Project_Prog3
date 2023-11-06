@@ -7,7 +7,6 @@ import javafx.geometry.Point2D;
 
 public class Car {
 
-
     private Rectangle body;
     private double velocity;
     private double angularVelocity;
@@ -19,8 +18,9 @@ public class Car {
     private boolean alive;    // A flag to indicate if the car is still alive
 
     final private int carWidth = 20;
-   final private int carLength = 80;
-    public Car(double angularVelocity, Point2D initialPosition){
+    final private int carLength = 80;
+
+    public Car(double angularVelocity, Point2D initialPosition) {
 
         this.body = new Rectangle(carLength, carWidth);
         this.angularVelocity = angularVelocity;
@@ -50,27 +50,26 @@ public class Car {
         // Calculate the angle increment for each sensor
         double angleIncrement = coneAngle / (numSensors - 1);
 
-        for (int i = -2; i < numSensors-2; i++) {
+        for (int i = -2; i < numSensors - 2; i++) {
 
             //double sensorAngle = startAngle + i * angleIncrement;
-            double sensorX = position.getX() + sensorRadius * Math.cos(-i * Math.PI/5);
-            double sensorY = position.getY() + sensorRadius * Math.sin(-i * Math.PI/5);
+            double sensorX = position.getX() + sensorRadius * Math.cos(-i * Math.PI / 5);
+            double sensorY = position.getY() + sensorRadius * Math.sin(-i * Math.PI / 5);
 
-            sensorArray[i+2] = new Line();
-            sensorArray[i+2].setStartX(position.getX());
-            sensorArray[i+2].setStartY(position.getY());
-            sensorArray[i+2].setEndX(sensorX);
-            sensorArray[i+2].setEndY(sensorY);
+            sensorArray[i + 2] = new Line();
+            sensorArray[i + 2].setStartX(position.getX());
+            sensorArray[i + 2].setStartY(position.getY());
+            sensorArray[i + 2].setEndX(sensorX);
+            sensorArray[i + 2].setEndY(sensorY);
 
-            sensorArray[i+2].setTranslateX(body.getTranslateX()+body.getWidth()/2);
+            sensorArray[i + 2].setTranslateX(body.getTranslateX() + body.getWidth() / 2);
 
-            double x = ((double)1/2) * (sensorArray[i+2].getEndX()-sensorArray[i+2].getStartX());
+            double x = ((double) 1 / 2) * (sensorArray[i + 2].getEndX() - sensorArray[i + 2].getStartX());
 
+            double y = ((double) 1 / 2) * (sensorArray[i + 2].getEndY() - sensorArray[i + 2].getStartY());
 
-            double y = ((double)1/2) * (sensorArray[i+2].getEndY()-sensorArray[i+2].getStartY());
-
-            sensorArray[i+2].setTranslateX(sensorArray[i+2].getTranslateX()+x-5);
-            sensorArray[i+2].setTranslateY(sensorArray[i+2].getTranslateY()+y);
+            sensorArray[i + 2].setTranslateX(sensorArray[i + 2].getTranslateX() + x - 5);
+            sensorArray[i + 2].setTranslateY(sensorArray[i + 2].getTranslateY() + y);
         }
     }
 
@@ -84,7 +83,6 @@ public class Car {
 
         return this.velocity;
     }
-
 
     public double getVelocity() {
         return this.velocity;
@@ -140,7 +138,29 @@ public class Car {
         return false; // Replace with your boundary check code
     }
 
+    //Matrix multiplications method for neuronetworking
+    static void multiplyMatrix(int row1, int col1, int A[][], int row2, int col2, int B[][]) {
+        
+        int i, j, k;
+        // Print the matrices A and B
+        // Check if multiplication is Possible
+        if (row2 != col1) {
+            return;
+        }
+
+        // Matrix to store the result
+        // The product matrix will
+        // be of size row1 x col2
+        int C[][] = new int[row1][col2];
+
+        // Multiply the two matrices
+        for (i = 0; i < row1; i++) {
+            for (j = 0; j < col2; j++) {
+                for (k = 0; k < row2; k++) {
+                    C[i][j] += A[i][k] * B[k][j];
+                }
+            }
+        }
+    }
 
 }
-
-
