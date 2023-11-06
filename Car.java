@@ -139,25 +139,26 @@ public class Car {
     }
 
     //Matrix multiplications method for neuronetworking
-    static void multiplyMatrix(int row1, int col1, int A[][], int row2, int col2, int B[][]) {
+    static void multiplyMatrix(int rowsOfMatrix1, int colsOfMatrix1, int firstMatrix[][], int rowsOfMatrix2, int colsOfMatrix2, int secondMatrix[][]) {
         
         int i, j, k;
-        // Print the matrices A and B
+
         // Check if multiplication is Possible
-        if (row2 != col1) {
+        if (colsOfMatrix2 != colsOfMatrix1) {
             return;
         }
 
-        // Matrix to store the result
-        // The product matrix will
-        // be of size row1 x col2
-        int C[][] = new int[row1][col2];
+        // New matrix created
+        
+        // The  matrix will
+        // be of size rowsOfMatrix1 x colsOfMatrix2
+        int newMatrix[][] = new int[rowsOfMatrix1][colsOfMatrix2];
 
-        // Multiply the two matrices
-        for (i = 0; i < row1; i++) {
-            for (j = 0; j < col2; j++) {
-                for (k = 0; k < row2; k++) {
-                    C[i][j] += A[i][k] * B[k][j];
+        // Matrix Multiplication
+        for (i = 0; i < rowsOfMatrix1; i++) {
+            for (j = 0; j < colsOfMatrix2; j++) {
+                for (k = 0; k < rowsOfMatrix2; k++) {
+                    newMatrix[i][j] += firstMatrix[i][k] * secondMatrix[k][j];
                 }
             }
         }
