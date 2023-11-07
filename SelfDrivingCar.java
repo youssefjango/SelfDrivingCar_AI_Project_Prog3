@@ -1,9 +1,5 @@
-package com.example.demo2;
+package com.example.demo;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
- */
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -343,6 +339,12 @@ public class SelfDrivingCar extends Application {
             sliderRed.adjustValue(0);
             sliderGreen.adjustValue(0);
             sliderBlue.adjustValue(0);
+
+            for (Car x:carList) {
+
+                carPane.getChildren().remove(x.getBody());
+                for (Line y:x.sensorArray) {carPane.getChildren().remove(y);}
+            }
 
             carList.clear();
         });
