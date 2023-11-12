@@ -1,4 +1,4 @@
-package com.example.demo2;
+
 
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;

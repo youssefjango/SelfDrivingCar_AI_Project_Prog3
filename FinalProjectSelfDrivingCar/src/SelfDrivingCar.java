@@ -1,4 +1,3 @@
-package com.example.demo2;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
