@@ -172,13 +172,12 @@ public class SelfDrivingCar extends Application {
 
         //==========================================================================================================================================
         //RACETRACK LINES AND SHAPES
-        
-        Rectangle startPoint = new Rectangle(0,0,200,100);
+        Rectangle startPoint = new Rectangle(0, 0, 200, 100);
         startPoint.setTranslateX(-350);
         startPoint.setTranslateY(-350);
         startPoint.setStroke(Color.BLACK);
         startPoint.setFill(Color.TRANSPARENT);
-        
+
         //First Line of the track
         Line line1 = new Line(0, 0, 0, 500);
         line1.setTranslateY(-150);
@@ -199,12 +198,12 @@ public class SelfDrivingCar extends Application {
         firstTurn2.setFill(Color.TRANSPARENT);
         firstTurn2.setTranslateX(-134);
         firstTurn2.setTranslateY(306);
-        
+
         //Second Line of the track
         Line line2 = new Line(0, 0, 0, 400);
         line2.setTranslateX(-19);
         line2.setTranslateY(-100);
-        
+
         //Smaller arc on the second turn of the race track
         Arc secondturn1 = new Arc(0, 0, 305, 270, 400, 100);
         secondturn1.setType(ArcType.OPEN);
@@ -212,12 +211,12 @@ public class SelfDrivingCar extends Application {
         secondturn1.setFill(Color.TRANSPARENT);
         secondturn1.setTranslateX(215);
         secondturn1.setTranslateY(-348);
-        
+
         //Third Line of the track
         Line line3 = new Line(0, 0, 0, 436);
         line3.setTranslateX(181);
         line3.setTranslateY(19);
-        
+
         //Bigger arc on the second turn of the race track
         Arc secondturn2 = new Arc(0, 0, 44, 40, 400, 100);
         secondturn2.setType(ArcType.OPEN);
@@ -225,13 +224,13 @@ public class SelfDrivingCar extends Application {
         secondturn2.setFill(Color.TRANSPARENT);
         secondturn2.setTranslateX(216);
         secondturn2.setTranslateY(-207);
-        
+
         //Fourth Line of the track
         Line line4 = new Line(0, 0, 0, 598);
         line4.setTranslateX(249);
         line4.setTranslateY(100);
-        
-        Rectangle finishLine = new Rectangle(0,0,200,100);
+
+        Rectangle finishLine = new Rectangle(0, 0, 200, 100);
         finishLine.setTranslateX(349);
         finishLine.setTranslateY(349);
         finishLine.setStroke(Color.BLACK);
@@ -246,7 +245,7 @@ public class SelfDrivingCar extends Application {
         raceTrack.add(firstTurn2);
         raceTrack.add(secondturn1);
         raceTrack.add(secondturn2);
-        
+
         //ADDING THE SHAPES TO THE CAR PANE FOR MAKING THE RACE TRACK
         carPane.getChildren().addAll(startPoint, line1, firstTurn1, firstTurn2, line2, secondturn1, secondturn2, line3, line4, finishLine);
         //==========================================================================================================================================
@@ -313,7 +312,7 @@ public class SelfDrivingCar extends Application {
                 carPane.getChildren().add(car.getBody());
 
                 // Add the sensor lines to the Pane
-                for (Line sensor : car.sensorArray) {
+                for (Line sensor : car.getSensorArray()) {
                     sensor.setStroke(Color.RED);
                     carPane.getChildren().add(sensor);
                 }
@@ -339,10 +338,12 @@ public class SelfDrivingCar extends Application {
             sliderGreen.adjustValue(0);
             sliderBlue.adjustValue(0);
 
-            for (Car x:carList) {
+            for (Car x : carList) {
 
                 carPane.getChildren().remove(x.getBody());
-                for (Line y:x.sensorArray) {carPane.getChildren().remove(y);}
+                for (Line y : x.getSensorArray()) {
+                    carPane.getChildren().remove(y);
+                }
             }
 
             carList.clear();
@@ -378,6 +379,30 @@ public class SelfDrivingCar extends Application {
             }
         }
         return false;
+    }
+    //IF CARS CRASHED EQUAL TO NUMBER OF CARS, DO SOMETHING
+
+    public ArrayList<Double> checkDistance(Car currCar) {
+        ArrayList<Double> distances = new ArrayList<>();
+        for (Line border : bordersList) {
+            for (Line sensor : currCar.getSensorArray()) {
+                if (sensor.getBoundsInParent().intersects(border.getBoundsInParent())) {
+                    //FIND TWO EQUATIONS ONE FOR BORDER AND ONE FOR SENSOR
+                    double aBorder = (border.getStartY() - border.getEndY()) / (border.getStartX() - border.getEndX());
+                    double bBorder = border.getStartY() - (aBorder * border.getStartX());
+                    double aSensor = (sensor.getStartY() - sensor.getEndY()) / (sensor.getStartX() - sensor.getEndX());
+                    //FIND SOLUTION X,Y WHICH CORRESPONDS TO THEIR INTERSECTION
+                    double bSensor = sensor.getStartY() - (aBorder * sensor.getStartX());
+                    double xSolution = (bBorder - bSensor) / (aSensor - bSensor);
+                    double ySolution = aBorder * xSolution + bBorder;
+                    //FIND THE LENGTH OF THE VECTOR FROM THE START OF THE SENSOR TO THE END (DISTANCE)
+                    distances.add(Math.sqrt(Math.pow((xSolution - sensor.getStartX()), 2) 
+                            + Math.pow(ySolution - sensor.getStartY(), 2)));
+
+                }
+            }
+        }
+        return distances;
     }
 
     /**

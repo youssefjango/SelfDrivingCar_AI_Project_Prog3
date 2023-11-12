@@ -11,7 +11,7 @@ public class Car {
     private double velocity;
     private double angularVelocity;
     private double fitnessScore;
-    public Line[] sensorArray;
+    private Line[] sensorArray;
 
     private Point2D position; // Current position of the car
     private double angle;     // Current angle of the car
@@ -163,5 +163,11 @@ public class Car {
             }
         }
     }
+
+    public Line[] getSensorArray() {
+        return sensorArray;
+    }
+
+   
 
 }
