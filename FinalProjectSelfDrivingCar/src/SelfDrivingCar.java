@@ -1,4 +1,5 @@
 
+import ActorsAndTrack.Car;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -164,6 +165,7 @@ public class SelfDrivingCar extends Application {
 
         //SCENE
         Scene scene = new Scene(root, 1500, 1000);
+        
 
         primaryStage.setTitle("Self Driving Cars");
         primaryStage.setScene(scene);
@@ -278,6 +280,23 @@ public class SelfDrivingCar extends Application {
         // Car car2 = new Car(5);
         //carPane.getChildren().addAll(car2.getBody());
         start.setOnAction(e -> {
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent e) {
+                switch (e.getCode().toString()) {
+                    case ("W") -> {
+                        carList.get(0).getPosition().add(100, 0);
+                    }
+                    case ("S") -> {
+                    }
+                    case ("D") -> {
+                    }
+                    case ("A") -> {
+                    }
+                    
+                }
+            }
+        });
 
             //Pause controls for program.
             if (pause) {
@@ -399,6 +418,8 @@ public class SelfDrivingCar extends Application {
                     distances.add(Math.sqrt(Math.pow((xSolution - sensor.getStartX()), 2) 
                             + Math.pow(ySolution - sensor.getStartY(), 2)));
 
+                } else {
+                 distances.add(-1.0);
                 }
             }
         }
@@ -416,6 +437,9 @@ public class SelfDrivingCar extends Application {
 
         @Override
         public void handle(long l) {
+            System.out.println(checkCollisions(carList.get(0)));
+            
+            
 
         }
     }
