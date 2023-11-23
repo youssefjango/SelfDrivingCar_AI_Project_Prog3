@@ -39,7 +39,8 @@ public class SelfDrivingCar extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Label title = new Label("Interface Visualizations");
+        Label title = new Label("THE AI CAR MODEL");
+        title.setId("title");
         AnimationTimer timer = new MyTimer();
 
         GridPane userInterface = new GridPane();
@@ -158,15 +159,14 @@ public class SelfDrivingCar extends Application {
         carPane.setMaxWidth(900);
         carPane.setMaxHeight(800);
         Scene carScene = new Scene(carPane, 100, 5);
-
+        carPane.setId("pane");
         carPane.setBorder(Border.stroke(Color.BLACK));
         carPane.setAlignment(Pos.CENTER);
         root.setCenter(carPane);
 
         //SCENE
         Scene scene = new Scene(root, 1500, 1000);
-        
-
+        scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("Self Driving Cars");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -177,8 +177,8 @@ public class SelfDrivingCar extends Application {
         Rectangle startPoint = new Rectangle(0, 0, 200, 100);
         startPoint.setTranslateX(-350);
         startPoint.setTranslateY(-350);
-        startPoint.setStroke(Color.BLACK);
-        startPoint.setFill(Color.TRANSPARENT);
+        startPoint.setStroke(Color.RED);
+        startPoint.setFill(Color.RED);
 
         //First Line of the track
         Line line1 = new Line(0, 0, 0, 500);
@@ -235,8 +235,9 @@ public class SelfDrivingCar extends Application {
         Rectangle finishLine = new Rectangle(0, 0, 200, 100);
         finishLine.setTranslateX(349);
         finishLine.setTranslateY(349);
-        finishLine.setStroke(Color.BLACK);
-        finishLine.setFill(Color.TRANSPARENT);
+        finishLine.setStroke(Color.GREEN);
+       
+        finishLine.setFill(Color.GREEN);
 
         //Adding lines of the track to an arrayList for collision purposes later on
         raceTrack.add(line1);
@@ -247,9 +248,13 @@ public class SelfDrivingCar extends Application {
         raceTrack.add(firstTurn2);
         raceTrack.add(secondturn1);
         raceTrack.add(secondturn2);
+        for (Shape shape : raceTrack) {
+            shape.setStrokeWidth(10);
+        }
 
         //ADDING THE SHAPES TO THE CAR PANE FOR MAKING THE RACE TRACK
-        carPane.getChildren().addAll(startPoint, line1, firstTurn1, firstTurn2, line2, secondturn1, secondturn2, line3, line4, finishLine);
+        carPane.getChildren().addAll(startPoint, finishLine);
+        carPane.getChildren().addAll(raceTrack);
         //==========================================================================================================================================
 
         //TEXTFIELD EVENTS
@@ -281,22 +286,22 @@ public class SelfDrivingCar extends Application {
         //carPane.getChildren().addAll(car2.getBody());
         start.setOnAction(e -> {
             scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent e) {
-                switch (e.getCode().toString()) {
-                    case ("W") -> {
-                        carList.get(0).getPosition().add(100, 0);
+                @Override
+                public void handle(KeyEvent e) {
+                    switch (e.getCode().toString()) {
+                        case ("W") -> {
+
+                        }
+                        case ("S") -> {
+                        }
+                        case ("D") -> {
+                        }
+                        case ("A") -> {
+                        }
+
                     }
-                    case ("S") -> {
-                    }
-                    case ("D") -> {
-                    }
-                    case ("A") -> {
-                    }
-                    
                 }
-            }
-        });
+            });
 
             //Pause controls for program.
             if (pause) {
@@ -320,7 +325,7 @@ public class SelfDrivingCar extends Application {
             //For loop to create as many cars as user inputted into text field.
             for (int i = 0; i < Integer.parseInt(noCars.getText()); i++) {
                 // Create a car instance
-                Car car = new Car(0, new Point2D(800, 800)); // Provide initial position
+                Car car = new Car(0, new Point2D(0, 0)); // Provide initial position
 
                 // Set the position and color of the car's body
                 car.getBody().setX(car.getPosition().getX());
@@ -386,7 +391,7 @@ public class SelfDrivingCar extends Application {
     //IF CARS CRASHED EQUAL TO NUMBER OF CARS, DO SOMETHING
     public boolean checkCollisions(Car currCar) {
 
-        for (Line x : bordersList) {
+        for (Shape x : raceTrack) {
 
             if (currCar.getBody().getBoundsInParent().intersects(x.getBoundsInParent())) {
                 if (carCrashed != carList.size()) {
@@ -403,25 +408,37 @@ public class SelfDrivingCar extends Application {
 
     public ArrayList<Double> checkDistance(Car currCar) {
         ArrayList<Double> distances = new ArrayList<>();
-        for (Line border : bordersList) {
-            for (Line sensor : currCar.getSensorArray()) {
+        for (Line sensor : currCar.getSensorArray()) {
+            ArrayList<Double> distancesBetweenBorderAndBody = new ArrayList<>();
+            for (Shape border : raceTrack) {
                 if (sensor.getBoundsInParent().intersects(border.getBoundsInParent())) {
                     //FIND TWO EQUATIONS ONE FOR BORDER AND ONE FOR SENSOR
-                    double aBorder = (border.getStartY() - border.getEndY()) / (border.getStartX() - border.getEndX());
-                    double bBorder = border.getStartY() - (aBorder * border.getStartX());
+                    double aBorder = (((Line) border).getStartY() - ((Line) border).getEndY()) / (((Line) border).getStartX() - ((Line) border).getEndX());
+                    double bBorder = ((Line) border).getStartY() - (aBorder * ((Line) border).getStartX());
                     double aSensor = (sensor.getStartY() - sensor.getEndY()) / (sensor.getStartX() - sensor.getEndX());
                     //FIND SOLUTION X,Y WHICH CORRESPONDS TO THEIR INTERSECTION
                     double bSensor = sensor.getStartY() - (aBorder * sensor.getStartX());
                     double xSolution = (bBorder - bSensor) / (aSensor - bSensor);
                     double ySolution = aBorder * xSolution + bBorder;
                     //FIND THE LENGTH OF THE VECTOR FROM THE START OF THE SENSOR TO THE END (DISTANCE)
-                    distances.add(Math.sqrt(Math.pow((xSolution - sensor.getStartX()), 2) 
+                    distancesBetweenBorderAndBody.add(Math.sqrt(Math.pow((xSolution - sensor.getStartX()), 2)
                             + Math.pow(ySolution - sensor.getStartY(), 2)));
-
                 } else {
-                 distances.add(-1.0);
+                    continue;
                 }
             }
+            double closestDistance = 9000;
+            for (double dist : distancesBetweenBorderAndBody) {
+                if (closestDistance > dist) {
+                    closestDistance = dist;
+                }
+
+            }
+            if (closestDistance == 9000) {
+                distances.add(-1.0);
+                continue;
+            }
+            distances.add(closestDistance);
         }
         return distances;
     }
@@ -438,8 +455,7 @@ public class SelfDrivingCar extends Application {
         @Override
         public void handle(long l) {
             System.out.println(checkCollisions(carList.get(0)));
-            
-            
+            System.out.println(checkDistance(carList.get(0)));
 
         }
     }

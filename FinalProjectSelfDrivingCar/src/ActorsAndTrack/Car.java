@@ -1,14 +1,11 @@
 package ActorsAndTrack;
 
-
-
+import java.util.ArrayList;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.geometry.Point2D;
 
 public class Car {
-
     private Rectangle body;
     private double velocity;
     private double angularVelocity;
@@ -72,6 +69,8 @@ public class Car {
 
             sensorArray[i + 2].setTranslateX(sensorArray[i + 2].getTranslateX() + x - 5);
             sensorArray[i + 2].setTranslateY(sensorArray[i + 2].getTranslateY() + y);
+
+            
         }
     }
 
@@ -142,7 +141,7 @@ public class Car {
 
     //Matrix multiplications method for neuronetworking
     static void multiplyMatrix(int rowsOfMatrix1, int colsOfMatrix1, int firstMatrix[][], int rowsOfMatrix2, int colsOfMatrix2, int secondMatrix[][]) {
-        
+
         int i, j, k;
 
         // Check if multiplication is Possible
@@ -151,7 +150,6 @@ public class Car {
         }
 
         // New matrix created
-        
         // The  matrix will
         // be of size rowsOfMatrix1 x colsOfMatrix2
         int newMatrix[][] = new int[rowsOfMatrix1][colsOfMatrix2];
@@ -169,7 +167,5 @@ public class Car {
     public Line[] getSensorArray() {
         return sensorArray;
     }
-
-   
 
 }
