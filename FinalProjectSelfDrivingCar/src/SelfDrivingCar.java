@@ -39,117 +39,11 @@ public class SelfDrivingCar extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Label title = new Label("THE AI CAR MODEL");
-        title.setId("title");
+        
         AnimationTimer timer = new MyTimer();
 
-        GridPane userInterface = new GridPane();
-        userInterface.setAlignment(Pos.CENTER_LEFT);
-        userInterface.setHgap(10);
-        userInterface.setVgap(5);
-        userInterface.setPadding(new Insets(10, 10, 10, 10));
-
-        userInterface.add(new Label("Number Of Cars:"), 0, 0);
-        TextField noCars = new TextField();
-        noCars.setMaxWidth(50);
-        userInterface.add(noCars, 1, 0);
-
-        //CAR COLOR PICKER
-        //BOX THAT WILL DISPLAY THE COLOR THAT HAS BEEN MADE USING THE SLIDERS
-        Rectangle color = new Rectangle(50, 50, Color.BLACK);
-        userInterface.add(color, 1, 1);
-        userInterface.setVgap(10);
-
-        //RED SLIDER
-        Label redSlider = new Label("Red");
-        Slider sliderRed = new Slider(0, 180, 10);
-        sliderRed.setMinWidth(150);
-        sliderRed.setMajorTickUnit(10);
-        sliderRed.setMinorTickCount(9);
-        sliderRed.setBlockIncrement(1);
-
-        //GREEN SLIDER
-        Label greenSlider = new Label("Green");
-        Slider sliderGreen = new Slider(0, 180, 10);
-        sliderGreen.setMinWidth(150);
-        sliderGreen.setMajorTickUnit(10);
-        sliderGreen.setMinorTickCount(9);
-        sliderGreen.setBlockIncrement(1);
-
-        //BLUE SLIDER 
-        Label blueSlider = new Label("Blue");
-        Slider sliderBlue = new Slider(0, 255, 10);
-        sliderBlue.setMinWidth(150);
-        sliderBlue.setMajorTickUnit(10);
-        sliderBlue.setMinorTickCount(9);
-        sliderBlue.setBlockIncrement(1);
-
-        sliderRed.valueProperty().addListener((observeable, oldvalue, newvalue) -> {
-            color.setFill(Color.rgb((int) sliderRed.getValue(), (int) sliderGreen.getValue(), (int) sliderBlue.getValue()));
-        });
-        sliderGreen.valueProperty().addListener((observeable, oldvalue, newvalue) -> {
-            color.setFill(Color.rgb((int) sliderRed.getValue(), (int) sliderGreen.getValue(), (int) sliderBlue.getValue()));
-        });
-        sliderBlue.valueProperty().addListener((observeable, oldvalue, newvalue) -> {
-            color.setFill(Color.rgb((int) sliderRed.getValue(), (int) sliderGreen.getValue(), (int) sliderBlue.getValue()));
-        });
-
-        //VBOX FOR COLOR PICKER
-        VBox colorBox = new VBox(5, redSlider, sliderRed, greenSlider, sliderGreen, blueSlider, sliderBlue);
-        userInterface.add(colorBox, 0, 1);
-
-        //MUTATION RATE:
-        userInterface.add(new Label("Mutation Rate:"), 0, 2);
-        TextField mutRate = new TextField();
-        mutRate.setMaxWidth(50);
-        userInterface.add(mutRate, 1, 2);
-
-        //CAR SPEED
-        userInterface.add(new Label("Car Speed:"), 0, 3);
-        TextField carSpeed = new TextField();
-        carSpeed.setMaxWidth(50);
-        userInterface.add(carSpeed, 1, 3);
-
-        //ANGULAR VELOCITY
-        userInterface.add(new Label("Angular Velocity:"), 0, 4);
-        TextField angVelocity = new TextField();
-        angVelocity.setMaxWidth(50);
-        userInterface.add(angVelocity, 1, 4);
-
-        //SAVE BUTTON
-        Button save = new Button("Save Settings");
-        save.setDisable(true);
-        userInterface.add(save, 0, 6);
-
-        //START BUTTON
-        Button start = new Button("Start Race");
-        start.setDisable(true);
-        userInterface.add(start, 0, 7);
-
-        //RESET BUTTON
-        Button reset = new Button("Reset Race");
-        reset.setDisable(true);
-        userInterface.add(reset, 0, 8);
-
-        //PLAY AND PAUSE BUTTON
-        Button play = new Button("Pause / Play");
-        play.setDisable(true);
-        userInterface.add(play, 0, 9);
-
-        //GENERATION OF CAR(s)
-        userInterface.add(new Label("Generation:"), 0, 10);
-        TextField gen = new TextField();
-        gen.setMaxWidth(50);
-        gen.setEditable(false);
-        userInterface.add(gen, 1, 10);
-
-        //PANE ROOT CREATION
-        BorderPane root = new BorderPane();
-        root.setLeft(userInterface);
-        root.setTop(title);
-        title.setTranslateX(400);
-        title.setTranslateY(10);
-        title.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+        UserInterfaceMaker userInterface = new UserInterfaceMaker(0);
+        BorderPane root = (BorderPane) userInterface.getRoot();
 
         //==========================================================================================================================================
         //SCENE AND PANES (creating pane and scene for the simulation)
@@ -258,25 +152,7 @@ public class SelfDrivingCar extends Application {
         //==========================================================================================================================================
 
         //TEXTFIELD EVENTS
-        //CHECK IF INPUT IN TEXTFIELDS ARE NUMBERS (VALID) AND MAKES SURE ALL FIELDS HAVE TEXT BEFORE RUNNING PROGRAM
-        noCars.setOnKeyReleased(e -> {
-            checkTextInputs(e, noCars, noCars, mutRate, carSpeed, angVelocity, save, start);
-        });
-
-        //CHECK IF INPUT IN TEXTFIELDS ARE NUMBERS (VALID) AND MAKES SURE ALL FIELDS HAVE TEXT BEFORE RUNNING PROGRAM
-        mutRate.setOnKeyReleased(e -> {
-            checkTextInputs(e, mutRate, noCars, mutRate, carSpeed, angVelocity, save, start);
-        });
-
-        //CHECK IF INPUT IN TEXTFIELDS ARE NUMBERS (VALID) AND MAKES SURE ALL FIELDS HAVE TEXT BEFORE RUNNING PROGRAM
-        carSpeed.setOnKeyReleased(e -> {
-            checkTextInputs(e, carSpeed, noCars, mutRate, carSpeed, angVelocity, save, start);
-        });
-
-        //CHECK IF INPUT IN TEXTFIELDS ARE NUMBERS (VALID) AND MAKES SURE ALL FIELDS HAVE TEXT BEFORE RUNNING PROGRAM
-        angVelocity.setOnKeyReleased(e -> {
-            checkTextInputs(e, angVelocity, noCars, mutRate, carSpeed, angVelocity, save, start);
-        });
+        userInterface.textFieldChecker();
 
         //==========================================================================================================================================
         //START BUTTON EVENT
@@ -375,18 +251,7 @@ public class SelfDrivingCar extends Application {
 
     }
 
-    public void checkTextInputs(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
-        if (!String.valueOf(e.getCode()).contains("DIGIT")) {
-            select.setText("");
-        }
-        if (!noCars.getText().isEmpty() && !mutRate.getText().isEmpty() && !carSpeed.getText().isEmpty() && !angVelocity.getText().isEmpty()) {
-            save.setDisable(false);
-            start.setDisable(false);
-        } else {
-            save.setDisable(true);
-            start.setDisable(true);
-        }
-    }
+    
 
     //IF CARS CRASHED EQUAL TO NUMBER OF CARS, DO SOMETHING
     public boolean checkCollisions(Car currCar) {
