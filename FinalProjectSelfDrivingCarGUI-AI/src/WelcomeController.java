@@ -7,7 +7,6 @@ import InterfaceComponents.Interface;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -45,17 +44,19 @@ public class WelcomeController implements Initializable {
     private Slider volumeSlider;
     MediaPlayer player;
     Interface GUIInterface = new Interface();
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+
         //initializing the objects needed to play mp3 files
         //music files are stored in the music folder
-        
         Media media = new Media(getClass().getResource("music/AISoundMusic.mp3").toExternalForm());
+        //second media used when user clicks "start"
+        Media media2 = new Media(getClass().getResource("music/marathonmusic.mp3").toExternalForm());
         player = new MediaPlayer(media);
         //automatically play the sount track once the main menu screen appears
         player.setAutoPlay(true);
@@ -65,18 +66,21 @@ public class WelcomeController implements Initializable {
         player.setVolume(0.5);
         //Adjusts volume depending on value of slider
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                player.setVolume((double) newValue);
+            player.setVolume((double) newValue);
         });
-        
-        
+
         //creates a highlight effect on the "Start" button 
         highlightButton(start);
         start.setOnAction((ActionEvent e) -> {
-                //changes the root of the scene to direct the user to the slideshow before the race starts
-                GUIInterface.getRoot().getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
-                GUIInterface.draw();
-                start.getScene().setRoot(GUIInterface.getRoot());
-                player.stop();                
+            //changes the root of the scene to direct the user to the racetrack
+            //applies css code to the Interface scene
+            GUIInterface.getRoot().getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+            //sets up the interface of the racetrack
+            GUIInterface.draw();
+            //changes the root to change windows
+            start.getScene().setRoot(GUIInterface.getRoot());
+            //makes it so that the volume slider works on the ractrack window
+            changeVolume(GUIInterface.getVolumeSlider(), media2);
         });
 
         //creates a highlight effect on the "Exit" button 
@@ -86,15 +90,25 @@ public class WelcomeController implements Initializable {
             System.exit(0);
         });
     }
-    
-    //style settings to make the buttons turn yellow when mouse is hovering over it and goes back to normal when the mouse is no longer on top of it.
+
+    public void changeVolume(Slider slider, Media media) {
+        player.stop();
+        //switches the music
+        player = new MediaPlayer(media);
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            player.setVolume((double) newValue);
+        });
+        player.play();
+    }
+
+    //style settings to make the buttons turn grey when mouse is hovering over it and goes back to normal when the mouse is no longer on top of it.
     public void highlightButton(Button button) {
         button.setOnMouseEntered(e -> {
             button.setStyle("-fx-background-color: grey");
         });
         button.setOnMouseExited(e -> {
-            button.setStyle("-fx-background-color: hello-view.fxml");
+            button.setStyle("-fx-background-color:  #f0f0f0");
         });
     }
-    
+
 }

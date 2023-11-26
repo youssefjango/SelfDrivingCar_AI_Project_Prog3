@@ -19,6 +19,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
 import java.util.ArrayList;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
 
 public class Interface {
 
@@ -57,12 +60,15 @@ public class Interface {
 
     //creating sliders for color selection
     Label redSlider = new Label("Red");
-    Slider sliderRed = new Slider(0, 180, 10);
+    Slider sliderRed = new Slider(0, 180, 0);
     Label greenSlider = new Label("Green");
-    Slider sliderGreen = new Slider(0, 180, 10);
+    Slider sliderGreen = new Slider(0, 180, 0);
     Label blueSlider = new Label("Blue");
-    Slider sliderBlue = new Slider(0, 255, 10);
+    Slider sliderBlue = new Slider(0, 255, 0);
     Rectangle colorSelector = new Rectangle(50, 50, Color.BLACK);
+    MediaPlayer player;
+    Slider volumeSlider = new Slider(0,1,0.5);
+    ImageView volumeSliderImage;
 
     public void draw() {
 
@@ -243,6 +249,7 @@ public class Interface {
 
         //SAVE BUTTON
         save.setDisable(true);
+        highlightButton(save);
         userInterface.add(save, 0, 6);
 
         //START BUTTON
@@ -271,6 +278,12 @@ public class Interface {
         exit.setMinHeight(100);
         exit.setMinWidth(100);
         exit.setStyle("-fx-background-image: url(\"/Images/exit.png\");");
+        
+        //VOLUME SLIDER
+        volumeSliderImage = new ImageView(new Image("/Images/volume2.png"));
+        userInterface.add(volumeSliderImage, 0, 11);
+        userInterface.add(volumeSlider, 1, 11);
+        volumeSlider.setTranslateX(-120);
         
         //START BUTTON EVENT
         //MAKE IT SO THAT IT CREATES NUMBER OF CARS WRITTEN IN THE noCars TEXTFIELD
@@ -370,6 +383,11 @@ public class Interface {
         userInterface.setVgap(10);
     }
 
+    public void setPlayer(MediaPlayer player) {
+        this.player = player;
+    }
+
+    
     private void setUpSliders() {
 
         //RED SLIDER
@@ -389,6 +407,13 @@ public class Interface {
         sliderBlue.setMajorTickUnit(10);
         sliderBlue.setMinorTickCount(9);
         sliderBlue.setBlockIncrement(1);
+        
+        //VOLUME SLIDER
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                player.setVolume((double) newValue);
+                System.out.println(player.getVolume());
+        });
+        
 
         //setting for sliders
         sliderRed.valueProperty().addListener((observeable, oldvalue, newvalue) -> {
@@ -400,6 +425,7 @@ public class Interface {
         sliderBlue.valueProperty().addListener((observeable, oldvalue, newvalue) -> {
             colorSelector.setFill(Color.rgb((int) sliderRed.getValue(), (int) sliderGreen.getValue(), (int) sliderBlue.getValue()));
         });
+        
     }
 
     private void setUserInterface() {
@@ -452,6 +478,11 @@ public class Interface {
 
     }
 
+    public Slider getVolumeSlider() {
+        return volumeSlider;
+    }
+
+    
     public BorderPane getRoot() {
         root.setStyle("-fx-background-color:grey");
         return root;
@@ -459,6 +490,16 @@ public class Interface {
 
     public ArrayList<Shape> getBordersList() {
         return bordersList;
+    }
+    
+    //style settings to make the buttons turn grey when mouse is hovering over it and goes back to normal when the mouse is no longer on top of it.
+    public void highlightButton(Button button) {
+        button.setOnMouseEntered(e -> {
+            button.setStyle("-fx-background-color: white");
+        });
+        button.setOnMouseExited(e -> {
+            button.setStyle("-fx-background-color:  #f0f0f0");
+        });
     }
 
     //public void setBorders(Line[] x ) {this.borders = x;}
