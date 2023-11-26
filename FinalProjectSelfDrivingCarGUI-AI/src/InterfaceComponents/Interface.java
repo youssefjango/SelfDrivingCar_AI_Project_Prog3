@@ -137,39 +137,53 @@ public class Interface {
         firstTurn1.setTranslateX(315);
         firstTurn1.setTranslateY(372);
 
-        //Bigger arc on the first turn of the race track
-        Arc firstTurn2 = new Arc(0, 0, 411, 380, 220, 100);
-        firstTurn2.setType(ArcType.OPEN);
-        firstTurn2.setStroke(Color.BLACK);
-        firstTurn2.setFill(Color.TRANSPARENT);
-        firstTurn2.setTranslateX(316);
-        firstTurn2.setTranslateY(420);
-
+        //Bigger turn on the first turn of the race track
+        //CANNOT USE ANOTHER ARC BECAUSE IT HAS INVISIBLE COLLISIONS, NOT ONLY ON THE VISIBLE PART OF THE ARC.
+        //first part of the turn
+        Line firstTurn2Part1 = new Line(0, 664, 200, 800);
+        firstTurn2Part1.setStroke(Color.BLACK);
+        firstTurn2Part1.setFill(Color.TRANSPARENT);
+        //second part of the turn
+        Line firstTurn2Part2 = new Line(200, 800, 430, 800);
+        firstTurn2Part1.setStroke(Color.BLACK);
+        firstTurn2Part1.setFill(Color.TRANSPARENT);
+        //third part of the turn
+        Line firstTurn2Part3 = new Line(430, 800, 632, 664);
+        firstTurn2Part3.setStroke(Color.BLACK);
+        firstTurn2Part3.setFill(Color.TRANSPARENT);
+        
         //Second Line of the track
         Line line2 = new Line(0, 0, 0, 400);
         line2.setTranslateX(430);
         line2.setTranslateY(100);
 
         //Smaller arc on the second turn of the race track
-        Arc secondturn1 = new Arc(0, 0, 305, 270, 400, 100);
+        Arc secondturn1 = new Arc(0, 0, 44, 40, 400, 100);
         secondturn1.setType(ArcType.OPEN);
         secondturn1.setStroke(Color.BLACK);
         secondturn1.setFill(Color.TRANSPARENT);
-        secondturn1.setTranslateX(665);
-        secondturn1.setTranslateY(273);
+        secondturn1.setTranslateX(666);
+        secondturn1.setTranslateY(253);
 
+        //Bigger arc on the second turn of the race track
+        //CANNOT USE ANOTHER ARC BECAUSE IT HAS INVISIBLE COLLISIONS, NOT ONLY ON THE VISIBLE PART OF THE ARC.
+        //first part of the turn
+        Line secondturn2Part1 = new Line(430, 100, 632, 0);
+        secondturn2Part1.setStroke(Color.BLACK);
+        secondturn2Part1.setFill(Color.TRANSPARENT);
+        //second part of the turn
+        Line secondturn2Part2 = new Line(632, 0, 698, 0);
+        secondturn2Part2.setStroke(Color.BLACK);
+        secondturn2Part2.setFill(Color.TRANSPARENT);
+        //third part of the turn
+        Line secondturn2Part3 = new Line(698, 0, 900, 100);
+        secondturn2Part3.setStroke(Color.BLACK);
+        secondturn2Part3.setFill(Color.TRANSPARENT);
+        
         //Third Line of the track
         Line line3 = new Line(0, 0, 0, 436);
         line3.setTranslateX(632);
         line3.setTranslateY(228);
-
-        //Bigger arc on the second turn of the race track
-        Arc secondturn2 = new Arc(0, 0, 44, 40, 400, 100);
-        secondturn2.setType(ArcType.OPEN);
-        secondturn2.setStroke(Color.BLACK);
-        secondturn2.setFill(Color.TRANSPARENT);
-        secondturn2.setTranslateX(666);
-        secondturn2.setTranslateY(253);
 
         //Fourth Line of the track
         Line line4 = new Line(0, 0, 0, 570);
@@ -193,9 +207,13 @@ public class Interface {
         raceTrack.add(line3);
         raceTrack.add(line4);
         raceTrack.add(firstTurn1);
-        raceTrack.add(firstTurn2);
+        raceTrack.add(firstTurn2Part1);
+        raceTrack.add(firstTurn2Part2);
+        raceTrack.add(firstTurn2Part3);
         raceTrack.add(secondturn1);
-        raceTrack.add(secondturn2);
+        raceTrack.add(secondturn2Part1);
+        raceTrack.add(secondturn2Part2);
+        raceTrack.add(secondturn2Part3);
         raceTrack.add(lineRight);
         for (Shape borderTrack : raceTrack) {
             borderTrack.setStrokeWidth(15);
@@ -203,16 +221,20 @@ public class Interface {
         }
 
         //ADDING THE SHAPES TO THE CAR PANE FOR MAKING THE RACE TRACK
-        carPane.getChildren().addAll(startPoint, finishLine, lineLeft, line1, firstTurn1, firstTurn2, line2, secondturn1, secondturn2, line3, line4, lineRight);
+        carPane.getChildren().addAll(startPoint, finishLine, lineLeft, line1, firstTurn1, firstTurn2Part1, firstTurn2Part2, firstTurn2Part3, line2, secondturn1, secondturn2Part1, secondturn2Part2, secondturn2Part3, line3, line4, lineRight);
         bordersList.add(lineLeft);
         bordersList.add(line1);
         bordersList.add(line2);
         bordersList.add(line3);
         bordersList.add(line4);
         bordersList.add(firstTurn1);
-        bordersList.add(firstTurn2);
+        bordersList.add(firstTurn2Part1);
+        bordersList.add(firstTurn2Part2);
+        bordersList.add(firstTurn2Part3);
         bordersList.add(secondturn1);
-        bordersList.add(secondturn2);
+        bordersList.add(secondturn2Part1);
+        bordersList.add(secondturn2Part2);
+        bordersList.add(secondturn2Part3);
         bordersList.add(lineRight);
 
     }
@@ -224,9 +246,9 @@ public class Interface {
         //AREA WHERE CARS AND RACETRACK WILL BE SHOWN
         carPane.setMaxWidth(900);
         carPane.setMaxHeight(800);
-        //carPane.setBackground(Background.fill(Color.CYAN));
+        carPane.setBackground(Background.fill(Color.CYAN));
         carPane.setId("pane");
-        //carPane.setBorder(Border.stroke(Color.BLACK));
+        carPane.setBorder(Border.stroke(Color.BLACK));
         root.setCenter(carPane);
     }
 
