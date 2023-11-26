@@ -117,11 +117,16 @@ public class Interface {
 
         //==========================================================================================================================================
         //RACETRACK LINES AND SHAPES
+        //Area where cars appear
         Rectangle startPoint = new Rectangle(0, 0, 200, 100);
-
+        startPoint.setTranslateX(700);
+        startPoint.setTranslateY(700);
         startPoint.setStroke(Color.BLACK);
-        startPoint.setFill(Color.RED);
-
+        startPoint.setFill(Color.GREEN);
+        
+        //Line behind the starting point
+        Line startWall = new Line(700, 800, 900, 800);
+        
         //Left wall line of the track
         Line lineLeft = new Line(0, 0, 0, 800);
 
@@ -141,16 +146,11 @@ public class Interface {
         //CANNOT USE ANOTHER ARC BECAUSE IT HAS INVISIBLE COLLISIONS, NOT ONLY ON THE VISIBLE PART OF THE ARC.
         //first part of the turn
         Line firstTurn2Part1 = new Line(0, 664, 200, 800);
-        firstTurn2Part1.setStroke(Color.BLACK);
-        firstTurn2Part1.setFill(Color.TRANSPARENT);
         //second part of the turn
         Line firstTurn2Part2 = new Line(200, 800, 430, 800);
-        firstTurn2Part1.setStroke(Color.BLACK);
-        firstTurn2Part1.setFill(Color.TRANSPARENT);
         //third part of the turn
         Line firstTurn2Part3 = new Line(430, 800, 632, 664);
-        firstTurn2Part3.setStroke(Color.BLACK);
-        firstTurn2Part3.setFill(Color.TRANSPARENT);
+
         
         //Second Line of the track
         Line line2 = new Line(0, 0, 0, 400);
@@ -169,16 +169,11 @@ public class Interface {
         //CANNOT USE ANOTHER ARC BECAUSE IT HAS INVISIBLE COLLISIONS, NOT ONLY ON THE VISIBLE PART OF THE ARC.
         //first part of the turn
         Line secondturn2Part1 = new Line(430, 100, 632, 0);
-        secondturn2Part1.setStroke(Color.BLACK);
-        secondturn2Part1.setFill(Color.TRANSPARENT);
         //second part of the turn
         Line secondturn2Part2 = new Line(632, 0, 698, 0);
-        secondturn2Part2.setStroke(Color.BLACK);
-        secondturn2Part2.setFill(Color.TRANSPARENT);
         //third part of the turn
         Line secondturn2Part3 = new Line(698, 0, 900, 100);
-        secondturn2Part3.setStroke(Color.BLACK);
-        secondturn2Part3.setFill(Color.TRANSPARENT);
+
         
         //Third Line of the track
         Line line3 = new Line(0, 0, 0, 436);
@@ -194,14 +189,17 @@ public class Interface {
         Line lineRight = new Line(0, 0, 0, 800);
         lineRight.setTranslateX(900);
 
+        //area where cars finish
         Rectangle finishLine = new Rectangle(0, 0, 200, 100);
-        finishLine.setTranslateX(700);
-        finishLine.setTranslateY(700);
         finishLine.setStroke(Color.BLACK);
-        finishLine.setFill(Color.GREEN);
+        finishLine.setFill(Color.RED);
 
+        //Makes a wall behind the finish line
+        Line finishWall = new Line(0, 0, 200, 0);
+        
         //Adding lines of the track to an arrayList for collision purposes later on
         raceTrack.add(lineLeft);
+        raceTrack.add(startWall);
         raceTrack.add(line1);
         raceTrack.add(line2);
         raceTrack.add(line3);
@@ -215,13 +213,15 @@ public class Interface {
         raceTrack.add(secondturn2Part2);
         raceTrack.add(secondturn2Part3);
         raceTrack.add(lineRight);
+        raceTrack.add(finishWall);
         for (Shape borderTrack : raceTrack) {
             borderTrack.setStrokeWidth(15);
 
         }
 
         //ADDING THE SHAPES TO THE CAR PANE FOR MAKING THE RACE TRACK
-        carPane.getChildren().addAll(startPoint, finishLine, lineLeft, line1, firstTurn1, firstTurn2Part1, firstTurn2Part2, firstTurn2Part3, line2, secondturn1, secondturn2Part1, secondturn2Part2, secondturn2Part3, line3, line4, lineRight);
+        carPane.getChildren().addAll(startWall, startPoint, finishLine, lineLeft, line1, firstTurn1, firstTurn2Part1, firstTurn2Part2, firstTurn2Part3, line2, secondturn1, secondturn2Part1, secondturn2Part2, secondturn2Part3, line3, line4, lineRight, finishWall);
+        bordersList.add(startWall);
         bordersList.add(lineLeft);
         bordersList.add(line1);
         bordersList.add(line2);
@@ -236,6 +236,7 @@ public class Interface {
         bordersList.add(secondturn2Part2);
         bordersList.add(secondturn2Part3);
         bordersList.add(lineRight);
+        bordersList.add(finishWall);
 
     }
 
