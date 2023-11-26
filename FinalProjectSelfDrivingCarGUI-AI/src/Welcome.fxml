@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="1006.0" fitWidth="1509.0" layoutX="-3.0" pickOnBounds="true" translateX="2.0">
          <image>
-            <Image url="@Photos/welcomeImage.png" />
+            <Image url="@Images/welcomeImage.png" />
          </image>
       </ImageView>
       <Label fx:id="welcome" alignment="CENTER" layoutX="442.0" layoutY="166.0" prefHeight="106.0" prefWidth="623.0" text="Self Driving Car" textFill="#1fa4d0" underline="true">
@@ -31,10 +31,10 @@
             <Font name="Bauhaus 93" size="24.0" />
          </font>
       </Button>
-      <Slider fx:id="volumeSlider" layoutX="1453.0" layoutY="790.0" max="1.0" orientation="VERTICAL" value="0.5" />
-      <ImageView fitHeight="56.0" fitWidth="60.0" layoutX="1430.0" layoutY="930.0" pickOnBounds="true" preserveRatio="true">
+      <Slider fx:id="volumeSlider" layoutX="1414.0" layoutY="433.0" max="1.0" orientation="VERTICAL" value="0.5" />
+      <ImageView fitHeight="56.0" fitWidth="60.0" layoutX="1394.0" layoutY="587.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Photos/Volume.png" />
+            <Image url="@Images/Volume.png" />
          </image>
          <effect>
             <ColorAdjust contrast="-1.0" />

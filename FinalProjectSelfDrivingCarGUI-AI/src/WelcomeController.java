@@ -73,9 +73,10 @@ public class WelcomeController implements Initializable {
         highlightButton(start);
         start.setOnAction((ActionEvent e) -> {
                 //changes the root of the scene to direct the user to the slideshow before the race starts
+                GUIInterface.getRoot().getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
                 GUIInterface.draw();
                 start.getScene().setRoot(GUIInterface.getRoot());
-                //player.stop();                
+                player.stop();                
         });
 
         //creates a highlight effect on the "Exit" button 

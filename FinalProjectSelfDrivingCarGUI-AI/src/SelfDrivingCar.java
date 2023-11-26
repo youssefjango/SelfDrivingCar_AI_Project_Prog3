@@ -40,7 +40,7 @@ public class SelfDrivingCar extends Application {
         this.test();
 
         primaryStage.setTitle("Self Driving Cars");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(menu);
         primaryStage.setResizable(false);
         primaryStage.show();
     }

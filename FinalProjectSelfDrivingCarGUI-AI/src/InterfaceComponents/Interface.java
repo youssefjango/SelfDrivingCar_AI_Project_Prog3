@@ -49,10 +49,11 @@ public class Interface {
     TextField gen = new TextField();
 
     //Creating buttons
-    Button start = new Button("Start Race");
+    Button start = new Button();
     Button save = new Button("Save Settings");
-    Button reset = new Button("Reset Race");
-    Button play = new Button("Pause / Play");
+    Button reset = new Button();
+    Button play = new Button();
+    Button exit = new Button();
 
     //creating sliders for color selection
     Label redSlider = new Label("Red");
@@ -217,9 +218,9 @@ public class Interface {
         //AREA WHERE CARS AND RACETRACK WILL BE SHOWN
         carPane.setMaxWidth(900);
         carPane.setMaxHeight(800);
-        carPane.setBackground(Background.fill(Color.CYAN));
+        //carPane.setBackground(Background.fill(Color.CYAN));
         carPane.setId("pane");
-        carPane.setBorder(Border.stroke(Color.BLACK));
+        //carPane.setBorder(Border.stroke(Color.BLACK));
         root.setCenter(carPane);
     }
 
@@ -247,15 +248,30 @@ public class Interface {
         //START BUTTON
         start.setDisable(true);
         userInterface.add(start, 0, 7);
+        start.setMinHeight(100);
+        start.setMinWidth(100);
+        start.setStyle("-fx-background-image: url(\"/Images/start.jpg\");");
 
         //RESET BUTTON
         reset.setDisable(true);
         userInterface.add(reset, 0, 8);
-
+        reset.setMinHeight(50);
+        reset.setMaxWidth(50);
+        reset.setStyle("-fx-background-image: url(\"/Images/reset.png\");");
+        
         //PLAY AND PAUSE BUTTON
         play.setDisable(true);
         userInterface.add(play, 0, 9);
-
+        play.setMinHeight(100);
+        play.setMinWidth(100);
+        play.setStyle("-fx-background-image: url(\"/Images/playbutton.png\");");
+        
+        //EXIT BUTTON
+        userInterface.add(exit, 1, 9);
+        exit.setMinHeight(100);
+        exit.setMinWidth(100);
+        exit.setStyle("-fx-background-image: url(\"/Images/exit.png\");");
+        
         //START BUTTON EVENT
         //MAKE IT SO THAT IT CREATES NUMBER OF CARS WRITTEN IN THE noCars TEXTFIELD
         //ALSO CREATES THEM ONCE START BUTTON IS PRESSED, BUTTON GREYED OUT UNTIL RACE FINISHED OR RESET BUTTON CLICKED
@@ -263,15 +279,6 @@ public class Interface {
         //carPane.getChildren().addAll(car2.getBody());
         //==========================================================================================================================================
         start.setOnAction(e -> {
-
-            //Pause controls for program.
-            if (pause) {
-                pause = false;
-                timer.start();
-            } else {
-                pause = true;
-                timer.stop();
-            }
 
             //Changes disable property of buttons accordingly...
             save.setDisable(false);
@@ -298,7 +305,13 @@ public class Interface {
                 carList.add(car);
             }
         });
-
+        //make button change image when hovered over with mouse
+        start.setOnMouseEntered(e -> {
+            start.setStyle("-fx-background-image: url(\"/Images/start2.jpg\");");
+        });
+        start.setOnMouseExited(e -> {
+            start.setStyle("-fx-background-image: url(\"/Images/start.jpg\");");
+        });
         //==========================================================================================================================================
         //RESET BUTTON EVENT
         //It resets all of the textfields and greys out the buttons like how it was originally, it also resets the slider values and clears the list of cars in the arrayList for cars.
@@ -326,9 +339,27 @@ public class Interface {
 
             carList.clear();
         });
-
+        //==========================================================================================================================================
+        //PLAY/PAUSE BUTTON EVENT
+        //Pauses the race until the use clicks the button once more. 
+        play.setOnAction(e->{
+            //Pause controls for program.
+            if (pause) {
+                play.setStyle("-fx-background-image: url(\"/Images/pausebutton.png\");");
+                pause=false;
+            }
+            else{
+            play.setStyle("-fx-background-image: url(\"/Images/playbutton.png\");");
+            pause=true;}
+        });
+        //==========================================================================================================================================
+        //closes the application upon pressing on the exit button
+        exit.setOnAction(e -> {
+            System.exit(0);
+        });
     }
 
+    
     private void setColorBox() {
         VBox colorBox = new VBox(5, redSlider, sliderRed, greenSlider, sliderGreen, blueSlider, sliderBlue);
         userInterface.add(colorBox, 0, 1);
@@ -422,6 +453,7 @@ public class Interface {
     }
 
     public BorderPane getRoot() {
+        root.setStyle("-fx-background-color:grey");
         return root;
     }
 
