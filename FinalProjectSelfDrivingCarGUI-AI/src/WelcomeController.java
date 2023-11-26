@@ -1,3 +1,8 @@
+
+import ArtificialIntelligenceComponents.*;
+import InterfaceComponents.Interface;
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
@@ -39,18 +44,18 @@ public class WelcomeController implements Initializable {
     @FXML
     private Slider volumeSlider;
     MediaPlayer player;
-    Simulation simulation = new Simulation();
+    Interface GUIInterface = new Interface();
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        /*
+        
         //initializing the objects needed to play mp3 files
         //music files are stored in the music folder
-        File soundFile = new File("music/MainMenuMusic.mp3");
-        Media media = new Media(soundFile.toURI().toString());
+        
+        Media media = new Media(getClass().getResource("music/AISoundMusic.mp3").toExternalForm());
         player = new MediaPlayer(media);
         //automatically play the sount track once the main menu screen appears
         player.setAutoPlay(true);
@@ -62,14 +67,14 @@ public class WelcomeController implements Initializable {
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
                 player.setVolume((double) newValue);
         });
-        */
+        
         
         //creates a highlight effect on the "Start" button 
         highlightButton(start);
         start.setOnAction((ActionEvent e) -> {
                 //changes the root of the scene to direct the user to the slideshow before the race starts
-                simulation.draw();
-                start.getScene().setRoot(simulation.getRoot());
+                GUIInterface.draw();
+                start.getScene().setRoot(GUIInterface.getRoot());
                 //player.stop();                
         });
 

@@ -1,4 +1,7 @@
+package RacetrackAndActors;
 
+
+import ArtificialIntelligenceComponents.Sensor;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -134,7 +137,7 @@ public class Car extends Circle {
     }
 
     //Matrix multiplications method for neuronetworking
-    static double multiplyVectors(double[] a, double[] b) {
+    public static double multiplyVectors(double[] a, double[] b) {
 
         if (a.length != b.length) {
             throw new IllegalArgumentException("Input vectors must have the same length");

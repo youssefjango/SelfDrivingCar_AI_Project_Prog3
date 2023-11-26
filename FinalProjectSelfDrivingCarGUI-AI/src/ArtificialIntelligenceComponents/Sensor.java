@@ -1,3 +1,5 @@
+package ArtificialIntelligenceComponents;
+import RacetrackAndActors.Car;
 
 
 import javafx.beans.binding.Bindings;

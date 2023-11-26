@@ -1,4 +1,8 @@
+package InterfaceComponents;
 
+import RacetrackAndActors.Car;
+
+import ArtificialIntelligenceComponents.Sensor;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -16,14 +20,13 @@ import javafx.scene.shape.*;
 
 import java.util.ArrayList;
 
-public class Simulation {
+public class Interface {
 
-    Car car = new Car(3, new Point2D(800, 800));
+    public Car car = new Car(3, new Point2D(800, 800));
 
     //creating a timer
     AnimationTimer timer = new MyTimer();
     boolean pause = true;
-
 
     //Track relateed shapes
     ArrayList<Shape> bordersList = new ArrayList();
@@ -35,11 +38,9 @@ public class Simulation {
     //creating Panes
     BorderPane root = new BorderPane();
     GridPane userInterface = new GridPane();
-    Pane carPane = new Pane();
+    public Pane carPane = new Pane();
 
     //Line[] borders;
-
-
     //creating texfields
     TextField angVelocity = new TextField();
     TextField noCars = new TextField();
@@ -53,8 +54,6 @@ public class Simulation {
     Button reset = new Button("Reset Race");
     Button play = new Button("Pause / Play");
 
-
-
     //creating sliders for color selection
     Label redSlider = new Label("Red");
     Slider sliderRed = new Slider(0, 180, 10);
@@ -64,8 +63,7 @@ public class Simulation {
     Slider sliderBlue = new Slider(0, 255, 10);
     Rectangle colorSelector = new Rectangle(50, 50, Color.BLACK);
 
-
-    void draw() {
+    public void draw() {
 
         this.setUserInterface();
         this.setTextFieldNbCars();
@@ -86,7 +84,6 @@ public class Simulation {
         this.setTrack();
 
         this.setCheckInputs();
-
 
     }
 
@@ -111,21 +108,20 @@ public class Simulation {
 
     private void setTrack() {
 
-
         //==========================================================================================================================================
         //RACETRACK LINES AND SHAPES
         Rectangle startPoint = new Rectangle(0, 0, 200, 100);
 
         startPoint.setStroke(Color.BLACK);
-        startPoint.setFill(Color.TRANSPARENT);
+        startPoint.setFill(Color.RED);
 
         //Left wall line of the track
         Line lineLeft = new Line(0, 0, 0, 800);
-        
+
         //First Line of the track
         Line line1 = new Line(0, 0, 0, 500);
         line1.setTranslateX(200);
-        
+
         //Smaller arc on the first turn of the race track
         Arc firstTurn1 = new Arc(0, 0, 150, 200, 220, 100);
         firstTurn1.setType(ArcType.OPEN);
@@ -172,16 +168,16 @@ public class Simulation {
         Line line4 = new Line(0, 0, 0, 570);
         line4.setTranslateX(700);
         line4.setTranslateY(228);
-        
+
         //Right wall line of the track
         Line lineRight = new Line(0, 0, 0, 800);
         lineRight.setTranslateX(900);
-        
+
         Rectangle finishLine = new Rectangle(0, 0, 200, 100);
         finishLine.setTranslateX(700);
         finishLine.setTranslateY(700);
         finishLine.setStroke(Color.BLACK);
-        finishLine.setFill(Color.TRANSPARENT);
+        finishLine.setFill(Color.GREEN);
 
         //Adding lines of the track to an arrayList for collision purposes later on
         raceTrack.add(lineLeft);
@@ -194,9 +190,13 @@ public class Simulation {
         raceTrack.add(secondturn1);
         raceTrack.add(secondturn2);
         raceTrack.add(lineRight);
-        
+        for (Shape borderTrack : raceTrack) {
+            borderTrack.setStrokeWidth(15);
+
+        }
+
         //ADDING THE SHAPES TO THE CAR PANE FOR MAKING THE RACE TRACK
-        carPane.getChildren().addAll(startPoint, lineLeft,  line1, firstTurn1, firstTurn2, line2, secondturn1, secondturn2, line3, line4, lineRight, finishLine);
+        carPane.getChildren().addAll(startPoint, finishLine, lineLeft, line1, firstTurn1, firstTurn2, line2, secondturn1, secondturn2, line3, line4, lineRight);
         bordersList.add(lineLeft);
         bordersList.add(line1);
         bordersList.add(line2);
@@ -218,7 +218,7 @@ public class Simulation {
         carPane.setMaxWidth(900);
         carPane.setMaxHeight(800);
         carPane.setBackground(Background.fill(Color.CYAN));
-
+        carPane.setId("pane");
         carPane.setBorder(Border.stroke(Color.BLACK));
         root.setCenter(carPane);
     }
@@ -256,13 +256,11 @@ public class Simulation {
         play.setDisable(true);
         userInterface.add(play, 0, 9);
 
-
         //START BUTTON EVENT
         //MAKE IT SO THAT IT CREATES NUMBER OF CARS WRITTEN IN THE noCars TEXTFIELD
         //ALSO CREATES THEM ONCE START BUTTON IS PRESSED, BUTTON GREYED OUT UNTIL RACE FINISHED OR RESET BUTTON CLICKED
         // Car car2 = new Car(5);
         //carPane.getChildren().addAll(car2.getBody());
-
         //==========================================================================================================================================
         start.setOnAction(e -> {
 
@@ -297,12 +295,9 @@ public class Simulation {
                     carPane.getChildren().add(sensor);
                 }
 
-
                 carList.add(car);
             }
         });
-
-
 
         //==========================================================================================================================================
         //RESET BUTTON EVENT
@@ -331,8 +326,6 @@ public class Simulation {
 
             carList.clear();
         });
-
-
 
     }
 
@@ -366,8 +359,6 @@ public class Simulation {
         sliderBlue.setMinorTickCount(9);
         sliderBlue.setBlockIncrement(1);
 
-
-
         //setting for sliders
         sliderRed.valueProperty().addListener((observeable, oldvalue, newvalue) -> {
             colorSelector.setFill(Color.rgb((int) sliderRed.getValue(), (int) sliderGreen.getValue(), (int) sliderBlue.getValue()));
@@ -386,7 +377,6 @@ public class Simulation {
         userInterface.setVgap(5);
         userInterface.setPadding(new Insets(10, 10, 10, 10));
     }
-
 
     public void checkTextInputs(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
         if (!String.valueOf(e.getCode()).contains("DIGIT")) {
@@ -407,13 +397,13 @@ public class Simulation {
         userInterface.add(noCars, 1, 0);
     }
 
-
-    private  void setTextFieldMutRate() {
+    private void setTextFieldMutRate() {
         userInterface.add(new Label("Mutation Rate:"), 0, 2);
         mutRate.setMaxWidth(50);
         userInterface.add(mutRate, 1, 2);
     }
-    private  void setTextFieldCarSpeed() {
+
+    private void setTextFieldCarSpeed() {
         userInterface.add(new Label("Car Speed:"), 0, 3);
         carSpeed.setMaxWidth(50);
         userInterface.add(carSpeed, 1, 3);
@@ -435,13 +425,11 @@ public class Simulation {
         return root;
     }
 
-
     public ArrayList<Shape> getBordersList() {
         return bordersList;
     }
 
     //public void setBorders(Line[] x ) {this.borders = x;}
-
     class MyTimer extends AnimationTimer {
 
         @Override

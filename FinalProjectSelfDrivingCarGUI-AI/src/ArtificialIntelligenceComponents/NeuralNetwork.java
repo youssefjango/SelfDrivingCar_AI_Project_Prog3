@@ -1,3 +1,5 @@
+package ArtificialIntelligenceComponents;
+
 
 public class NeuralNetwork {
 

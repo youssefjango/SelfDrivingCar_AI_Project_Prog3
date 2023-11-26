@@ -1,9 +1,12 @@
+package ArtificialIntelligenceComponents;
+
+import RacetrackAndActors.Car;
+
 public class HiddenLayer {
 
     private double[][] weights;
     private int currentLayerSize;
     private int previousLayerSize;
-
 
     public HiddenLayer(int currentLayerSize, int previousLayerSize) {
         this.currentLayerSize = currentLayerSize;
@@ -14,15 +17,16 @@ public class HiddenLayer {
 
     @Override
     public HiddenLayer clone() {
-        HiddenLayer hiddenLayer = new HiddenLayer(this.currentLayerSize,this.previousLayerSize);
-        for (int i =0; i<this.currentLayerSize;i++) {
-            for (int j =0; j<this.previousLayerSize;j++) {
+        HiddenLayer hiddenLayer = new HiddenLayer(this.currentLayerSize, this.previousLayerSize);
+        for (int i = 0; i < this.currentLayerSize; i++) {
+            for (int j = 0; j < this.previousLayerSize; j++) {
                 hiddenLayer.weights[i][j] = this.weights[i][j];
             }
         }
 
-        return  hiddenLayer;
+        return hiddenLayer;
     }
+
     public void mutate(float learningRate) {
         for (int i = 0; i < currentLayerSize; i++) {
             for (int j = 0; j < previousLayerSize; j++) {
@@ -36,7 +40,6 @@ public class HiddenLayer {
             }
         }
     }
-
 
     private void initRandom() {
         for (int i = 0; i < weights.length; i++) {
@@ -55,12 +58,9 @@ public class HiddenLayer {
         return output;
     }
 
-
     public String toString() {
         String title = String.format("HiddenLayer[%d][%d]:", weights.length, weights[0].length);
         return title;
     }
 
 }
-
-

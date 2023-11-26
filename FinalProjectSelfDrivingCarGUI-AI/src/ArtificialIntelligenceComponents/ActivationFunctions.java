@@ -1,3 +1,5 @@
+package ArtificialIntelligenceComponents;
+
 
 public class ActivationFunctions {
     public static double sigmoid(double x) {

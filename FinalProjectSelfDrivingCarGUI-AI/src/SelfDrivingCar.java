@@ -3,39 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMain.java to edit this template
  */
-import javafx.animation.AnimationTimer;
+import InterfaceComponents.Interface;
+import ArtificialIntelligenceComponents.Sensor;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import javafx.event.EventType;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
 
 /**
  *
  * @author 2278304
  */
 public class SelfDrivingCar extends Application {
-    Simulation simulation = new Simulation();
+
+    Interface simulation = new Interface();
     Scene scene;
 
     @Override
@@ -47,10 +36,11 @@ public class SelfDrivingCar extends Application {
 
         //SCENE
         scene = new Scene(simulation.getRoot(), 1500, 1000);
+        scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         this.test();
 
         primaryStage.setTitle("Self Driving Cars");
-        primaryStage.setScene(menu);
+        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
@@ -99,7 +89,8 @@ public class SelfDrivingCar extends Application {
         double distance = Double.MAX_VALUE; // Initialize with a large value
         Line sensor = simulation.car.getSensorArray()[order];
 
-        for (Shape wall : raceTrack) {
+        for (Iterator<Shape> it = raceTrack.iterator(); it.hasNext();) {
+            Shape wall = it.next();
             Shape intersection = Shape.intersect(sensor, wall);
             if (intersection.getBoundsInLocal().getWidth() != -1) {
                 // Collision detected, calculate distance from sensor to wall
