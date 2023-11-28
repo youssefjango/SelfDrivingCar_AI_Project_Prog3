@@ -1,6 +1,4 @@
 
-import ArtificialIntelligenceComponents.*;
-import InterfaceComponents.Interface;
 
 
 /*
@@ -10,6 +8,7 @@ import InterfaceComponents.Interface;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,6 +25,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 /**
@@ -42,8 +46,8 @@ public class WelcomeController implements Initializable {
     private Button exit;
     @FXML
     private Slider volumeSlider;
-    MediaPlayer player;
-    Interface GUIInterface = new Interface();
+    static private MediaPlayer player;
+    private Simulation simulation = new Simulation();
 
     /**
      * Initializes the controller class.
@@ -74,13 +78,13 @@ public class WelcomeController implements Initializable {
         start.setOnAction((ActionEvent e) -> {
             //changes the root of the scene to direct the user to the racetrack
             //applies css code to the Interface scene
-            GUIInterface.getRoot().getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
+            simulation.getRoot().getStylesheets().add("style.css");
             //sets up the interface of the racetrack
-            GUIInterface.draw();
+            simulation.draw();
             //changes the root to change windows
-            start.getScene().setRoot(GUIInterface.getRoot());
+            start.getScene().setRoot(simulation.getRoot());
             //makes it so that the volume slider works on the ractrack window
-            changeVolume(GUIInterface.getVolumeSlider(), media2);
+            changeVolume(simulation.getVolumeSlider(), media2);
         });
 
         //creates a highlight effect on the "Exit" button 
@@ -90,6 +94,11 @@ public class WelcomeController implements Initializable {
             System.exit(0);
         });
     }
+
+    static public MediaPlayer getPlayer() {
+        return player;
+    }
+    
 
     public void changeVolume(Slider slider, Media media) {
         player.stop();

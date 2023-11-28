@@ -1,5 +1,6 @@
-package ArtificialIntelligenceComponents;
 
+
+import java.util.Arrays;
 
 public class NeuralNetwork {
 
@@ -8,7 +9,7 @@ public class NeuralNetwork {
     private float learningRate; // Mutation Rate
     private int[] layers;
 
-    public NeuralNetwork(float learningRate,int... layers) {
+    public NeuralNetwork(float learningRate, int[] layers) {
 
         this.learningRate = learningRate;
         this.layers = layers;
@@ -29,26 +30,56 @@ public class NeuralNetwork {
     public NeuralNetwork clone() {
 
         NeuralNetwork neuralNetwork = new NeuralNetwork(this.learningRate, this.layers);
-        neuralNetwork.hiddenLayers = this.hiddenLayers.clone();
+        for (int i = 0; i < this.hiddenLayers.length; i++) {
+            neuralNetwork.hiddenLayers[i] = this.hiddenLayers[i].clone();
+        }
+
+
 
         return neuralNetwork;
     }
 
 
     public double[] predict(double[] input) {
-        activations[0] = input;
 
+        activations[0] = input;
         for (int i = 0; i < hiddenLayers.length; i++) {
             activations[i + 1] = hiddenLayers[i].activate(activations[i]);
         }
-
         return activations[activations.length - 1];
     }
 
     public void mutate() {
-        for (HiddenLayer layer: this.hiddenLayers) {
+        for (HiddenLayer layer : this.hiddenLayers) {
             layer.mutate(this.learningRate);
         }
+    }
+
+
+
+    public double[][] getActivations() {
+        return activations;
+    }
+
+    public HiddenLayer[] getHiddenLayers() {
+        return hiddenLayers;
+    }
+
+    public int[] getLayers() {
+        return this.layers;
+    }
+    public String toString() {
+        String ret = "learning rate : " + this.learningRate + "\n";
+        ret += "Hidden Layers : " + Arrays.toString(this.hiddenLayers) + "\n";
+
+        for (int i = 0; i < this.layers.length; i++) {
+
+            ret += "Hidden layer " + i + Arrays.toString(this.activations[i]) + "\n";
+
+        }
+
+        ret += "Output layer: " + Arrays.toString(this.activations[this.activations.length - 1]) + "\n";
+        return ret;
     }
 
 }
