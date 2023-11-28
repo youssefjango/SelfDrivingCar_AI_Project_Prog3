@@ -1,5 +1,4 @@
 
-
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -13,7 +12,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.scene.image.Image;
@@ -24,11 +22,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 public class Simulation {
 
     private static Simulation singleSimulation;
-
 
     //TODO remove
     ArrayList<Shape> intersections = new ArrayList();
@@ -39,7 +35,6 @@ public class Simulation {
     AnimationTimer timer = new MyTimer();
     BooleanProperty started = new SimpleBooleanProperty(false);
     boolean pause = true;
-
 
     //Track relateed shapes
     ArrayList<Shape> bordersList = new ArrayList();
@@ -54,7 +49,6 @@ public class Simulation {
     GridPane userInterface = new GridPane();
     Pane carPane = new Pane();
 
-
     //creating texfields
     TextField angVelocity = new TextField();
     TextField noCars = new TextField();
@@ -64,7 +58,7 @@ public class Simulation {
 
     //Creating buttons
     Button start = new Button("");
-    Button save = new Button("");
+    Button save = new Button("Save settings");
     Button reset = new Button("");
     Button play = new Button("");
     Button exit = new Button("");
@@ -78,7 +72,6 @@ public class Simulation {
     NeuralDisplay neuralDisplay;
     //lastcar for neural display
     Car lastCar;
-
 
     //creating sliders for color selection
     Label redSlider = new Label("Red");
@@ -96,7 +89,6 @@ public class Simulation {
 
     //instanciating menubar
     MenuBar menuBar;
-
 
     //instanciating layersoptions
     Label neuronsPerLayerLabel = new Label("Neurons per Layer:");
@@ -151,7 +143,6 @@ public class Simulation {
             System.err.println("Invalid input. Please enter valid integers for neurons per layer.");
         }
     }
-
 
     private void setupMenuBar() {
         menuBar = new MenuBar();
@@ -227,13 +218,13 @@ public class Simulation {
 
         // Customize the ending string
         String endMessage = "Here is the list of all the fitness scores in order so you can see the evolution over time: \n";
-        endMessage+= fitnessList + "\n";
+        endMessage += fitnessList + "\n";
 
         String endInputs = "Your inputs were: \n";
-        endInputs+="Number of cars: " +noCars.getText()+"\n";
-        endInputs+="Mutation rate: " +mutRate.getText()+"\n";
-        endInputs+="Velocity: " +carSpeed.getText()+"\n";
-        endInputs+="Angular Velocity: " +angVelocity.getText()+"\n";
+        endInputs += "Number of cars: " + noCars.getText() + "\n";
+        endInputs += "Mutation rate: " + mutRate.getText() + "\n";
+        endInputs += "Velocity: " + carSpeed.getText() + "\n";
+        endInputs += "Angular Velocity: " + angVelocity.getText() + "\n";
 
         StringBuilder endLayers = new StringBuilder("Layers: 7 input layers + " + layers.length + " hidden layers + 2 output layers\n");
 
@@ -241,8 +232,8 @@ public class Simulation {
         for (int neurons : layers) {
             endLayers.append("Hidden layer ").append(layerNumber++).append(": ").append(neurons).append(" neurons\n");
         }
-        endInputs+=endLayers.toString();
-        endMessage+=endInputs;
+        endInputs += endLayers.toString();
+        endMessage += endInputs;
 
         // Create a label with the instructions
         Label label = new Label(endMessage);
@@ -284,7 +275,6 @@ public class Simulation {
 
     }
 
-
     private void setTrack() {
 
         //==========================================================================================================================================
@@ -323,7 +313,6 @@ public class Simulation {
         //third part of the turn
         Line firstTurn2Part3 = new Line(430, 800, 632, 664);
 
-
         //Second Line of the track
         Line line2 = new Line(0, 0, 0, 400);
         line2.setTranslateX(430);
@@ -345,7 +334,6 @@ public class Simulation {
         Line secondturn2Part2 = new Line(632, 0, 698, 0);
         //third part of the turn
         Line secondturn2Part3 = new Line(698, 0, 900, 100);
-
 
         //Third Line of the track
         Line line3 = new Line(0, 0, 0, 436);
@@ -388,7 +376,9 @@ public class Simulation {
         bordersList.add(lineRight);
         bordersList.add(finishWall);
 
-
+        for (Shape line : bordersList) {
+            line.setStrokeWidth(10);
+        }
         setBorders();
 
     }
@@ -412,6 +402,7 @@ public class Simulation {
 
         //carPane.setBorder(Border.stroke(Color.BLACK));
         root.setCenter(carPane);
+        
     }
 
     private void setTitle() {
@@ -440,47 +431,44 @@ public class Simulation {
         //START BUTTON
         start.setDisable(true);
         userInterface.add(start, 0, 7);
-        start.setMinHeight(100);
-        start.setMinWidth(100);
+        start.setMinHeight(85);
+        start.setMinWidth(85);
         start.setStyle("-fx-background-image: url(\"/Images/start.jpg\");");
 
         //RESET BUTTON
         reset.setDisable(true);
         userInterface.add(reset, 0, 8);
-        reset.setMinHeight(50);
-        reset.setMaxWidth(50);
+        reset.setMinHeight(85);
+        reset.setMaxWidth(85);
         reset.setStyle("-fx-background-image: url(\"/Images/reset.png\");");
 
         //PLAY AND PAUSE BUTTON
         play.setDisable(true);
         userInterface.add(play, 0, 9);
-        play.setMinHeight(100);
-        play.setMinWidth(100);
+        play.setMinHeight(85);
+        play.setMinWidth(85);
         play.setStyle("-fx-background-image: url(\"/Images/playbutton.png\");");
 
         //EXIT BUTTON
         userInterface.add(exit, 1, 9);
-        exit.setMinHeight(100);
-        exit.setMinWidth(100);
+        exit.setMinHeight(85);
+        exit.setMinWidth(85);
         exit.setStyle("-fx-background-image: url(\"/Images/exit.png\");");
 
         //recommended settings button
-        userInterface.add(recommended,1,6);
+        userInterface.add(recommended, 1, 6);
 
         //VOLUME SLIDER
-        volumeSliderImage = new ImageView(new Image("/Images/volume2.png") );
+        volumeSliderImage = new ImageView(new Image("/Images/volume2.png"));
         userInterface.add(volumeSliderImage, 0, 11);
         userInterface.add(volumeSlider, 1, 11);
         volumeSlider.setTranslateX(-120);
-       
-
 
         //START BUTTON EVENT
         //MAKE IT SO THAT IT CREATES NUMBER OF CARS WRITTEN IN THE noCars TEXTFIELD
         //ALSO CREATES THEM ONCE START BUTTON IS PRESSED, BUTTON GREYED OUT UNTIL RACE FINISHED OR RESET BUTTON CLICKED
         // Car car2 = new Car(5);
         //carPane.getChildren().addAll(car2.getBody());
-
         //==========================================================================================================================================
         start.setOnAction(e -> {
 
@@ -505,14 +493,12 @@ public class Simulation {
                     carPane.getChildren().add(sensor);
                 }
 
-
                 carList.add(car);
                 carListFull.add(car);
                 car.setOnMouseClicked(mouseEvent -> {
 
                     lastCar = car;
                     showNeuralDisplay(car);
-
 
                 });
             }
@@ -524,7 +510,6 @@ public class Simulation {
         start.setOnMouseExited(e -> {
             start.setStyle("-fx-background-image: url(\"/Images/start.jpg\");");
         });
-
 
         //==========================================================================================================================================
         //RESET BUTTON EVENT
@@ -670,7 +655,6 @@ public class Simulation {
         userInterface.add(noCars, 1, 0);
     }
 
-
     private void setTextFieldMutRate() {
         userInterface.add(new Label("Mutation Rate:"), 0, 2);
         mutRate.setMaxWidth(50);
@@ -705,13 +689,11 @@ public class Simulation {
         return root;
     }
 
-
     public ArrayList<Shape> getBordersList() {
         return bordersList;
     }
 
     //public void setBorders(Line[] x ) {this.borders = x;}
-
     //style settings to make the buttons turn grey when mouse is hovering over it and goes back to normal when the mouse is no longer on top of it.
     public void highlightButton(Button button) {
         button.setOnMouseEntered(e -> {
@@ -762,7 +744,6 @@ public class Simulation {
         } else {
             save.setDisable(true);
         }
-
 
     }
 
@@ -827,7 +808,6 @@ public class Simulation {
 
     private void checkIfAllCarsDead() {
 
-
         boolean allDead = true;
         for (Car car : carListFull) {
 
@@ -867,13 +847,11 @@ public class Simulation {
 
             car.getBrain().mutate();
 
-
         }
 
         deadCars.clear();
 
     }
-
 
     private void removeDeadCars() {
         for (Car car : deadCars) {
@@ -912,7 +890,6 @@ public class Simulation {
 
     private void showNeuralDisplay(Car car) {
 
-
         if (carPane.getChildren().contains(neuralDisplay)) {
 
             carPane.getChildren().remove(neuralDisplay);
@@ -925,7 +902,6 @@ public class Simulation {
 
     }
 
-
     public double checkCollisionWithWall(int order, Car car) {
         double distance = Double.MAX_VALUE; // Initialize with a large value
         Line sensor = car.getSensorArray()[order];
@@ -936,10 +912,10 @@ public class Simulation {
             // Calculate corners of the bounding box
             Bounds bounds = intersection.getBoundsInParent();
             double[][] corners = {
-                    {bounds.getMinX(), bounds.getMinY()},
-                    {bounds.getMinX(), bounds.getMaxY()},
-                    {bounds.getMaxX(), bounds.getMinY()},
-                    {bounds.getMaxX(), bounds.getMaxY()}
+                {bounds.getMinX(), bounds.getMinY()},
+                {bounds.getMinX(), bounds.getMaxY()},
+                {bounds.getMaxX(), bounds.getMinY()},
+                {bounds.getMaxX(), bounds.getMaxY()}
             };
 
             // Find the closest corner
@@ -954,8 +930,6 @@ public class Simulation {
             }
 
             // Draw the circle at the closest corner
-
-
             // Check if any collision was detected
             if (distance == Double.MAX_VALUE) {
                 return 0;
