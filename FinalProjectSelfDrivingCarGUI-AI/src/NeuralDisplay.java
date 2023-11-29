@@ -64,17 +64,18 @@ public class NeuralDisplay extends Pane {
             for (int j = 0; j < activations[i].length; j++) {
 
                 Label value = new Label();
+                value.setId("neuronNet");
                 DoubleProperty prop = new SimpleDoubleProperty(activations[i][j]);
-                value.setTextFill(Color.WHITE);
+                
                 value.textProperty().bind(prop.asString("%.2f"));
 
                 Circle neuron = new Circle(20);
                 neuron.setUserData(prop);
 
-                neuron.setCenterX(layerGap * (i + 1) - (this.getWidth()));
-                neuron.setCenterY(heighGap * (j + 1) - (this.getHeight()));
-                value.setTranslateX(layerGap * (i + 1) - (15));
-                value.setTranslateY(heighGap * (j + 1) - (8));
+                neuron.setCenterX(layerGap * (i + 0.5) - (this.getWidth()));
+                neuron.setCenterY(heighGap * (j + 0.5) - (this.getHeight()));
+                value.setTranslateX(layerGap * (i + 0.5) - (10));
+                value.setTranslateY(heighGap * (j + 0.5) - (5));
 
                 this.getChildren().addAll(neuron, value);
                 neuronList.get(i).add(neuron);

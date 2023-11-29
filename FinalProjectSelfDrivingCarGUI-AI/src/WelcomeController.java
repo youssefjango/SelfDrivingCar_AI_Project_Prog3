@@ -1,6 +1,8 @@
 
 
 
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
@@ -60,7 +62,7 @@ public class WelcomeController implements Initializable {
         //music files are stored in the music folder
         Media media = new Media(getClass().getResource("music/AISoundMusic.mp3").toExternalForm());
         //second media used when user clicks "start"
-        Media media2 = new Media(getClass().getResource("music/marathonmusic.mp3").toExternalForm());
+        Media media2 = new Media(getClass().getResource("music/AIBackgroundSound.mp3").toExternalForm());
         player = new MediaPlayer(media);
         //automatically play the sount track once the main menu screen appears
         player.setAutoPlay(true);

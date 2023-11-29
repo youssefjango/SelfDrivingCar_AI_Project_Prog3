@@ -8,12 +8,73 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 */
 
 #pane{
-    -fx-background-image: url("/Images/grassbackGround.jpg");
+    -fx-background-image: url("/Images/moonBackground.jpg");
     -fx-background-repeat: stretch;
-    -fx-background-size: 1300 1000;
+    -fx-background-size: 900 800;
+    -fx-background-position: left top;
+}
+
+#mainPain{
+    -fx-background-image: url("/Images/metallicBackground.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 3000 1000;
     -fx-background-position: center center;
-    
+}
+
+#simulationPane{
+    -fx-background-image: url("/Images/metallicMenu.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 500 1000;
+    -fx-background-position: center center;
+
 }
 #title{
     -fx-font-size: 70pt;
+}
+.root {
+    -fx-background-color: dimgrey;
+    -fx-font-size: 10pt;
+
+}
+.label {
+    -fx-text-fill: linear-gradient( DarkBlue, black );
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+
+}
+.button {
+    -fx-background-color: linear-gradient(to right, red , blue);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 15;
+    -fx-background-radius: 20;
+
+}
+.text-field {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-font-family: cursive;
+    -fx-font-size: 15pt;
+
+}
+.slider .thumb {
+    -fx-background-color: black; /* Color of the thumb */
+    -fx-background-radius: 0; /* Make the thumb square (remove rounded corners) */
+}
+#redSlider .slider .thumb{
+
+    -fx-background-color: red; /* Color of the thumb */
+    -fx-background-radius: 0; /* Make the thumb square (remove rounded corners) */
+
+}
+/* Thumb Area (the region where the thumb can be dragged) */
+.slider .thumb .thumb-area {
+    -fx-background-color: red; /* Make the thumb area transparent */
+}
+#neuronNet{
+    -fx-text-size: 1pt;
+    -fx-text-fill: white;
+    -fx-font-weight: normal;
 }

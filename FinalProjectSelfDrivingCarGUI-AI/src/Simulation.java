@@ -1,4 +1,5 @@
 
+import java.util.ArrayDeque;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -14,6 +15,8 @@ import javafx.scene.shape.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
+import javafx.collections.FXCollections;
 import javafx.scene.image.Image;
 
 import javafx.scene.image.ImageView;
@@ -47,6 +50,7 @@ public class Simulation {
     //creating Panes
     BorderPane root = new BorderPane();
     GridPane userInterface = new GridPane();
+
     Pane carPane = new Pane();
 
     //creating texfields
@@ -55,6 +59,9 @@ public class Simulation {
     TextField mutRate = new TextField();
     TextField carSpeed = new TextField();
     TextField gen = new TextField();
+    //Creating ComboBox
+    String[] backgroundStrings = {"Mars", "Earth", "Moon"};
+    ComboBox backgroundBox = new ComboBox(FXCollections.observableArrayList(backgroundStrings));
 
     //Creating buttons
     Button start = new Button("");
@@ -80,12 +87,12 @@ public class Simulation {
     Slider sliderGreen = new Slider(0, 180, 10);
     Label blueSlider = new Label("Blue");
     Slider sliderBlue = new Slider(0, 255, 10);
-    Rectangle colorSelector = new Rectangle(50, 50, Color.BLACK);
+    Circle colorSelector = new Circle(50, Color.BLACK);
     static MediaPlayer player;
     Slider volumeSlider = new Slider(0, 1, 0.5);
     ImageView volumeSliderImage;
 
-    ArrayList<Car> deadCars = new ArrayList<>();
+    Deque<Car> deadCars = new ArrayDeque<>();
 
     //instanciating menubar
     MenuBar menuBar;
@@ -103,6 +110,7 @@ public class Simulation {
 
         this.setUserInterface();
         this.setTextFieldNbCars();
+
         this.setColorSelector();
         this.setUpSliders();
         this.setColorBox();
@@ -402,7 +410,7 @@ public class Simulation {
 
         //carPane.setBorder(Border.stroke(Color.BLACK));
         root.setCenter(carPane);
-        
+
     }
 
     private void setTitle() {
@@ -425,11 +433,13 @@ public class Simulation {
 
         //SAVE BUTTON
         save.setDisable(true);
+        save.setPrefWidth(200);
         highlightButton(save);
         userInterface.add(save, 0, 6);
 
         //START BUTTON
         start.setDisable(true);
+        start.setPrefWidth(160);
         userInterface.add(start, 0, 7);
         start.setMinHeight(85);
         start.setMinWidth(85);
@@ -437,13 +447,15 @@ public class Simulation {
 
         //RESET BUTTON
         reset.setDisable(true);
+        reset.setPrefWidth(160);
         userInterface.add(reset, 0, 8);
         reset.setMinHeight(85);
-        reset.setMaxWidth(85);
+        //reset.setMaxWidth(85);
         reset.setStyle("-fx-background-image: url(\"/Images/reset.png\");");
 
         //PLAY AND PAUSE BUTTON
         play.setDisable(true);
+        play.setPrefWidth(160);
         userInterface.add(play, 0, 9);
         play.setMinHeight(85);
         play.setMinWidth(85);
@@ -591,11 +603,16 @@ public class Simulation {
     }
 
     private void setColorBox() {
-        VBox colorBox = new VBox(5, redSlider, sliderRed, greenSlider, sliderGreen, blueSlider, sliderBlue);
+        redSlider.setStyle("-fx-text-fill: red");
+        sliderRed.setId("redSlider");
+        greenSlider.setStyle("-fx-text-fill: green");
+        blueSlider.setStyle("-fx-text-fill: blue");
+        VBox colorBox = new VBox(8, redSlider, sliderRed, greenSlider, sliderGreen, blueSlider, sliderBlue, new HBox(20, new Label("Place:"), backgroundBox));
         userInterface.add(colorBox, 0, 1);
     }
 
     private void setColorSelector() {
+        colorSelector.setStyle("-fx-background-image: url(\"/Images/carImage.jpg\");");
         userInterface.add(colorSelector, 1, 1);
         userInterface.setVgap(10);
     }
@@ -642,6 +659,7 @@ public class Simulation {
     }
 
     private void setUserInterface() {
+        userInterface.setId("simulationPane");
         userInterface.setAlignment(Pos.CENTER_LEFT);
         userInterface.setHgap(10);
         userInterface.setVgap(5);
@@ -686,6 +704,7 @@ public class Simulation {
 
     public BorderPane getRoot() {
         root.setStyle("-fx-background-color:grey");
+        root.setId("mainPain");
         return root;
     }
 
@@ -697,10 +716,11 @@ public class Simulation {
     //style settings to make the buttons turn grey when mouse is hovering over it and goes back to normal when the mouse is no longer on top of it.
     public void highlightButton(Button button) {
         button.setOnMouseEntered(e -> {
-            button.setStyle("-fx-background-color: white");
+            button.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+
         });
         button.setOnMouseExited(e -> {
-            button.setStyle("-fx-background-color:  #f0f0f0");
+            button.setStyle("");
         });
     }
 

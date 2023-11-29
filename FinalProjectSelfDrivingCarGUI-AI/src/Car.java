@@ -1,10 +1,11 @@
 
-
+import java.util.ArrayDeque;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
+import java.util.Deque;
 
 public class Car extends Circle {
 
@@ -42,7 +43,7 @@ public class Car extends Circle {
             this.sensorArray[i] = new Sensor(i, this);
         }
 
-        ArrayList<Integer> allLayersList = new ArrayList<Integer>();
+        Deque<Integer> allLayersList = new ArrayDeque<Integer>();
 
         for (int nbNeurons:layers) allLayersList.add(nbNeurons);
 
