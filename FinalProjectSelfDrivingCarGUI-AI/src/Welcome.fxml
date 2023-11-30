@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="1000.0" maxWidth="1500.0" minHeight="1000.0" minWidth="1500.0" prefHeight="1000.0" prefWidth="1500.0" style="-fx-background-color: blue;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="WelcomeController">
    <children>
-      <ImageView fitHeight="1006.0" fitWidth="1509.0" layoutX="-3.0" pickOnBounds="true" translateX="2.0">
+      <ImageView fitHeight="1022.0" fitWidth="1770.0" layoutX="-3.0" pickOnBounds="true" translateX="2.0">
          <image>
             <Image url="@Images/welcomeImage.png" />
          </image>

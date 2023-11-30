@@ -71,29 +71,46 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     -fx-font-size: 15pt;
 
 }
+
+
 .slider .thumb {
-    -fx-background-color: black; /* Color of the thumb */
+    -fx-background-color: white; /* Color of the thumb */
     -fx-background-radius: 0; /* Make the thumb square (remove rounded corners) */
 }
-#redSlider .slider .thumb{
+.slider .label {
+    -fx-text-fill: red; /* Change this to your desired color */
+}
+#redSlider .track{
 
     -fx-background-color: red; /* Color of the thumb */
     -fx-background-radius: 0; /* Make the thumb square (remove rounded corners) */
 
 }
-/* Thumb Area (the region where the thumb can be dragged) */
-.slider .thumb .thumb-area {
-    -fx-background-color: red; /* Make the thumb area transparent */
+#greenSlider .track{
+
+    -fx-background-color: green; 
+    
+
 }
-.menu-bar { 
+#blueSlider .track{
+
+    -fx-background-color: lightblue; 
+    -fx-background-radius: 0; 
+
+}
+
+.slider .track {
     -fx-background-color: black; 
+}
+.menu-bar {
+    -fx-background-color: black;
 }
 .menu-bar .label {
-    -fx-background-color: black; 
+    -fx-background-color: black;
     -fx-font-size: 14.0 pt;
     -fx-font-family: "math";
     -fx-text-fill: white;
-    -fx-font-weight: bold; 
+    -fx-font-weight: bold;
     -fx-padding: 10.0px;
 
 }

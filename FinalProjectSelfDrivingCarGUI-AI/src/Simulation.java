@@ -68,10 +68,9 @@ public class Simulation {
     String[] backgroundStrings = {"Earth", "Mars", "Moon"};
     ComboBox backgroundBox = new ComboBox(FXCollections.observableArrayList(backgroundStrings));
 
-
-   //Creating slider sensor length
+    //Creating slider sensor length
     Slider sensorLengthSlider = new Slider();
-    
+
     //Creating buttons
     Button start = new Button("");
     Button save = new Button("Save settings");
@@ -166,10 +165,26 @@ public class Simulation {
     private void setBackgroundBox() {
         backgroundBox.getSelectionModel().select(0);
     }
-    
-    private void setLengthSlider(){
-    sensorLengthSlider
+
+    private void setLengthSlider() {
+        userInterface.add(new Label("Sensor Length:"), 0, 6);
+        userInterface.add(sensorLengthSlider, 1, 6);
+        sensorLengthSlider.setMin(1);
+        sensorLengthSlider.setMax(200);
+        sensorLengthSlider.setValue(150);
+        sensorLengthSlider.setShowTickMarks(true);
+        sensorLengthSlider.setShowTickLabels(true);
+
+        sensorLengthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            carList.forEach((Car car) -> {
+                for (Sensor s : car.getSensorArray()) {
+                    s.setSensorLength((double) newValue);
+                }
+            });
+        });
+
     }
+
     /**
      *
      */
@@ -460,7 +475,7 @@ public class Simulation {
         save.setDisable(true);
         save.setPrefWidth(200);
         highlightButton(save);
-        userInterface.add(save, 0, 6);
+        userInterface.add(save, 1, 8);
 
         //START BUTTON
         start.setDisable(true);
@@ -475,7 +490,7 @@ public class Simulation {
         reset.setPrefWidth(160);
         userInterface.add(reset, 0, 8);
         reset.setMinHeight(85);
-        //reset.setMaxWidth(85);
+
         reset.setStyle("-fx-background-image: url(\"/Images/reset.png\");");
 
         //PLAY AND PAUSE BUTTON
@@ -493,7 +508,7 @@ public class Simulation {
         exit.setStyle("-fx-background-image: url(\"/Images/exit.png\");");
 
         //recommended settings button
-        userInterface.add(recommended, 1, 6);
+        userInterface.add(recommended, 1, 7);
 
         //VOLUME SLIDER
         volumeSliderImage = new ImageView(new Image("/Images/volume2.png"));
@@ -631,8 +646,10 @@ public class Simulation {
         redSlider.setStyle("-fx-text-fill: red");
         sliderRed.setId("redSlider");
         greenSlider.setStyle("-fx-text-fill: green");
-        blueSlider.setStyle("-fx-text-fill: blue");
-        VBox colorBox = new VBox(8, redSlider, sliderRed, greenSlider, sliderGreen, blueSlider, sliderBlue, new HBox(20, new Label("Place:"), backgroundBox, new Label("Sensor Length:"),sensorLengthSlider));
+        sliderGreen.setId("greenSlider");
+        blueSlider.setStyle("-fx-text-fill: lightblue");
+        sliderBlue.setId("blueSlider");
+        VBox colorBox = new VBox(8, redSlider, sliderRed, greenSlider, sliderGreen, blueSlider, sliderBlue, new HBox(20, new Label("Place:"), backgroundBox));
         userInterface.add(colorBox, 0, 1);
     }
 
