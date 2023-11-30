@@ -7,8 +7,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
     Author     : YOUSSEF
 */
 
-#pane{
+#paneMoon{
     -fx-background-image: url("/Images/moonBackground.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 900 800;
+    -fx-background-position: left top;
+}
+#paneEarth{
+    -fx-background-image: url("/Images/earthBackground.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 900 800;
+    -fx-background-position: left top;
+}
+#paneMars{
+    -fx-background-image: url("/Images/marsBackground.jpg");
     -fx-background-repeat: stretch;
     -fx-background-size: 900 800;
     -fx-background-position: left top;
@@ -37,7 +49,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 }
 .label {
-    -fx-text-fill: linear-gradient( DarkBlue, black );
+    -fx-text-fill: white;
     -fx-font-size: 14pt;
     -fx-font-weight: bold;
 
@@ -72,6 +84,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 /* Thumb Area (the region where the thumb can be dragged) */
 .slider .thumb .thumb-area {
     -fx-background-color: red; /* Make the thumb area transparent */
+}
+.menu-bar { 
+    -fx-background-color: black; 
+}
+.menu-bar .label {
+    -fx-background-color: black; 
+    -fx-font-size: 14.0 pt;
+    -fx-font-family: "math";
+    -fx-text-fill: white;
+    -fx-font-weight: bold; 
+    -fx-padding: 10.0px;
+
 }
 #neuronNet{
     -fx-text-size: 1pt;

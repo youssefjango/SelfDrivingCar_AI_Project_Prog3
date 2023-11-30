@@ -24,6 +24,9 @@ public class Sensor extends Line {
                 car.centerYProperty(), car.rotateProperty()));
 
     }
+    public static void setSensorLength(double length){
+        LENGTH = length;
+    };
 
     public static double getLength() {
         return LENGTH;

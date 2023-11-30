@@ -1,8 +1,7 @@
 
-
-
 import java.util.Arrays;
 import java.util.Random;
+
 public class HiddenLayer {
 
     private double[][] weights;
@@ -11,7 +10,6 @@ public class HiddenLayer {
 
     private Random random = new Random();
 
-
     public HiddenLayer(int currentLayerSize, int previousLayerSize) {
         this.currentLayerSize = currentLayerSize;
         this.previousLayerSize = previousLayerSize;
@@ -19,18 +17,18 @@ public class HiddenLayer {
         initRandom();
     }
 
-
     @Override
     public HiddenLayer clone() {
-        HiddenLayer hiddenLayer = new HiddenLayer(this.currentLayerSize,this.previousLayerSize);
-        for (int i =0; i<this.currentLayerSize;i++) {
-            for (int j =0; j<this.previousLayerSize;j++) {
+        HiddenLayer hiddenLayer = new HiddenLayer(this.currentLayerSize, this.previousLayerSize);
+        for (int i = 0; i < this.currentLayerSize; i++) {
+            for (int j = 0; j < this.previousLayerSize; j++) {
                 hiddenLayer.weights[i][j] = this.weights[i][j];
             }
         }
 
-        return  hiddenLayer;
+        return hiddenLayer;
     }
+
     public void mutate(float learningRate) {
         for (int i = 0; i < currentLayerSize; i++) {
             for (int j = 0; j < previousLayerSize; j++) {
@@ -41,7 +39,6 @@ public class HiddenLayer {
             }
         }
     }
-
 
     private void initRandom() {
         for (int i = 0; i < weights.length; i++) {
@@ -59,7 +56,6 @@ public class HiddenLayer {
 
         return output;
     }
-
 
     public String toString() {
         String ret = "[";
@@ -79,5 +75,3 @@ public class HiddenLayer {
     }
 
 }
-
-

@@ -7,11 +7,11 @@ import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import java.util.Deque;
 
-public class Car extends Circle {
+public class Car extends Circle implements Drivable{
 
     private static float LEARNING_RATE = 0.3f;
     private static final int CAR_RADIUS = 15;
-    private static final int SENSOR_COUNT = 7;
+    
     private static final Color CAR_COLOR = Color.IVORY;
     private static final double MIN_SPEED = 1;
 
@@ -112,7 +112,8 @@ public class Car extends Circle {
         this.fitnessScore = score;
 
     }
-
+    
+    
     public static void setANGULAR_VELOCITY(double ANGULAR_VELOCITY) {
         Car.ANGULAR_VELOCITY = ANGULAR_VELOCITY;
     }

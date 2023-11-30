@@ -25,6 +25,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author YOUSSEF
+ */
 public class Simulation {
 
     private static Simulation singleSimulation;
@@ -59,10 +63,15 @@ public class Simulation {
     TextField mutRate = new TextField();
     TextField carSpeed = new TextField();
     TextField gen = new TextField();
+
     //Creating ComboBox
-    String[] backgroundStrings = {"Mars", "Earth", "Moon"};
+    String[] backgroundStrings = {"Earth", "Mars", "Moon"};
     ComboBox backgroundBox = new ComboBox(FXCollections.observableArrayList(backgroundStrings));
 
+
+   //Creating slider sensor length
+    Slider sensorLengthSlider = new Slider();
+    
     //Creating buttons
     Button start = new Button("");
     Button save = new Button("Save settings");
@@ -91,7 +100,7 @@ public class Simulation {
     static MediaPlayer player;
     Slider volumeSlider = new Slider(0, 1, 0.5);
     ImageView volumeSliderImage;
-
+    Rectangle finishLine;
     Deque<Car> deadCars = new ArrayDeque<>();
 
     //instanciating menubar
@@ -110,14 +119,16 @@ public class Simulation {
 
         this.setUserInterface();
         this.setTextFieldNbCars();
-
+        this.setBackgroundBox();
+        this.setLengthSlider();
+        this.setPlace();
         this.setColorSelector();
         this.setUpSliders();
         this.setColorBox();
         this.setTextFieldMutRate();
         this.setTextFieldCarSpeed();
         this.setTextFieldAngleVelocity();
-        carPane.setId("pane");
+        carPane.setId("paneEarth");
 
         this.setButtons();
         this.setGenerationsOfCars();
@@ -150,6 +161,25 @@ public class Simulation {
             // Handle the case where the input is not a valid integer
             System.err.println("Invalid input. Please enter valid integers for neurons per layer.");
         }
+    }
+
+    private void setBackgroundBox() {
+        backgroundBox.getSelectionModel().select(0);
+    }
+    
+    private void setLengthSlider(){
+    sensorLengthSlider
+    }
+    /**
+     *
+     */
+    public void setPlace() {
+        backgroundBox.setOnAction(e -> {
+            String backgroundName = (String) backgroundBox.getSelectionModel().getSelectedItem();
+            System.out.println("pane" + backgroundName);
+            carPane.setId("pane" + backgroundName);
+
+        });
     }
 
     private void setupMenuBar() {
@@ -292,7 +322,7 @@ public class Simulation {
         startPoint.setTranslateX(700);
         startPoint.setTranslateY(700);
         startPoint.setStroke(Color.BLACK);
-        startPoint.setFill(Color.GREEN);
+        startPoint.setFill(Color.DARKRED);
 
         //Line behind the starting point
         Line startWall = new Line(0, 800, 900, 800);
@@ -358,9 +388,9 @@ public class Simulation {
         lineRight.setTranslateX(900);
 
         //area where cars finish
-        Rectangle finishLine = new Rectangle(0, 0, 200, 100);
+        finishLine = new Rectangle(0, 0, 200, 100);
         finishLine.setStroke(Color.BLACK);
-        finishLine.setFill(Color.RED);
+        finishLine.setFill(Color.LIGHTGREEN);
 
         //Makes a wall behind the finish line
         Line finishWall = new Line(0, 0, 900, 0);
@@ -404,11 +434,6 @@ public class Simulation {
         //SCENE AND PANES (creating pane and scene for the simulation)
         //CAR PANE
         //AREA WHERE CARS AND RACETRACK WILL BE SHOWN
-        //carPane.setMaxWidth(900);
-        //carPane.setMaxHeight(800);
-        //carPane.setBackground(Background.fill(Color.CYAN));
-
-        //carPane.setBorder(Border.stroke(Color.BLACK));
         root.setCenter(carPane);
 
     }
@@ -607,7 +632,7 @@ public class Simulation {
         sliderRed.setId("redSlider");
         greenSlider.setStyle("-fx-text-fill: green");
         blueSlider.setStyle("-fx-text-fill: blue");
-        VBox colorBox = new VBox(8, redSlider, sliderRed, greenSlider, sliderGreen, blueSlider, sliderBlue, new HBox(20, new Label("Place:"), backgroundBox));
+        VBox colorBox = new VBox(8, redSlider, sliderRed, greenSlider, sliderGreen, blueSlider, sliderBlue, new HBox(20, new Label("Place:"), backgroundBox, new Label("Sensor Length:"),sensorLengthSlider));
         userInterface.add(colorBox, 0, 1);
     }
 
@@ -617,6 +642,10 @@ public class Simulation {
         userInterface.setVgap(10);
     }
 
+    /**
+     *
+     * @param player
+     */
     public void setPlayer(MediaPlayer player) {
         this.player = player;
     }
@@ -698,22 +727,38 @@ public class Simulation {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public Slider getVolumeSlider() {
         return volumeSlider;
     }
 
+    /**
+     *
+     * @return
+     */
     public BorderPane getRoot() {
         root.setStyle("-fx-background-color:grey");
         root.setId("mainPain");
         return root;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Shape> getBordersList() {
         return bordersList;
     }
 
     //public void setBorders(Line[] x ) {this.borders = x;}
     //style settings to make the buttons turn grey when mouse is hovering over it and goes back to normal when the mouse is no longer on top of it.
+    /**
+     *
+     * @param button
+     */
     public void highlightButton(Button button) {
         button.setOnMouseEntered(e -> {
             button.setStyle("-fx-background-color: white; -fx-text-fill: black;");
@@ -726,8 +771,16 @@ public class Simulation {
 
     class MyTimer extends AnimationTimer {
 
+        double firstTime = 0;
+
         @Override
         public void handle(long l) {
+            double t = l - firstTime;
+            for (Car car : carList) {
+                if (car.intersects(finishLine.getBoundsInParent())) {
+                    car.setFitnessScore(car.getFitnessScore() + (int) (10000 / t));
+                }
+            }
             carPane.getChildren().removeAll(intersections);
             intersections.clear();
             calculateSensorsLength();
@@ -736,13 +789,30 @@ public class Simulation {
             removeDeadCars();
             addFitness();
             checkIfAllCarsDead();
+
             if (lastCar != null) {
                 showNeuralDisplay(lastCar);
             }
         }
 
+        @Override
+        public void start() {
+            firstTime = System.currentTimeMillis() / 1000000000;
+            super.start();
+        }
     }
 
+    /**
+     *
+     * @param e
+     * @param select
+     * @param noCars
+     * @param mutRate
+     * @param carSpeed
+     * @param angVelocity
+     * @param save
+     * @param start
+     */
     public void checkTextInputs(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
         if (!String.valueOf(e.getCode()).contains("DIGIT")) {
             select.setText("");
@@ -755,6 +825,17 @@ public class Simulation {
         }
     }
 
+    /**
+     *
+     * @param e
+     * @param select
+     * @param noCars
+     * @param mutRate
+     * @param carSpeed
+     * @param angVelocity
+     * @param save
+     * @param start
+     */
     public void checkTextInputsDecimal(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
         if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("PERIOD")) {
             select.setText("");
@@ -767,6 +848,17 @@ public class Simulation {
 
     }
 
+    /**
+     *
+     * @param e
+     * @param select
+     * @param noCars
+     * @param mutRate
+     * @param carSpeed
+     * @param angVelocity
+     * @param save
+     * @param start
+     */
     public void checkTextInputsComma(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
         if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("COMMA")) {
             select.setText("");
@@ -805,6 +897,9 @@ public class Simulation {
         alert.showAndWait();
     }
 
+    /**
+     *
+     */
     public void addFitness() {
 
         for (Car car : carList) {
@@ -843,13 +938,16 @@ public class Simulation {
 
     }
 
+    /**
+     *
+     */
     public void setupNextGeneration() {
 
         System.err.println("Generation " + gen.getText() + " finished");
         Car highestFitness = deadCars.getLast();
         fitnessList.add(highestFitness.getFitnessScore());
 
-        gen.setText(Integer.valueOf(gen.getText()) + 1 + "");
+        gen.setText(Integer.parseInt(gen.getText()) + 1 + "");
         for (Car car : carListFull) {
 
             car.setRotate(90);
@@ -922,6 +1020,12 @@ public class Simulation {
 
     }
 
+    /**
+     *
+     * @param order
+     * @param car
+     * @return
+     */
     public double checkCollisionWithWall(int order, Car car) {
         double distance = Double.MAX_VALUE; // Initialize with a large value
         Line sensor = car.getSensorArray()[order];
@@ -974,6 +1078,10 @@ public class Simulation {
         return distance;
     }
 
+    /**
+     *
+     * @return
+     */
     public static Simulation getSimulationInstance() {
         if (singleSimulation == null) {
             singleSimulation = new Simulation();
