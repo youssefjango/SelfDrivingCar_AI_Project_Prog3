@@ -14,7 +14,10 @@ import javafx.scene.shape.Shape;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
+/**
+ *
+ * This class consists of the visible neural display accesible in Simulation
+ */
 public class NeuralDisplay extends Pane {
 
     private static final int WIDTH = 600;
@@ -32,7 +35,10 @@ public class NeuralDisplay extends Pane {
     private ArrayList<ArrayList<Circle>> neuronList = new ArrayList();
     AnimationTimer timer = new myTimer();
 
-
+    /**
+     *
+     * @param car
+     */
     public NeuralDisplay(Car car) {
 
         this.setPrefSize(WIDTH, HEIGHT);
@@ -125,6 +131,10 @@ public class NeuralDisplay extends Pane {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Car getDisplayedCar() {
         return this.displayedCar;
     }

@@ -7,6 +7,10 @@ import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import java.util.Deque;
 
+/**
+ *
+ * Class which consists of the car used for the races
+ */
 public class Car extends Circle implements Drivable{
 
     private static float LEARNING_RATE = 0.3f;
@@ -24,7 +28,11 @@ public class Car extends Circle implements Drivable{
 
     private NeuralNetwork brain;
 
-
+    /**
+     *
+     * @param initialPosition
+     * @param layers
+     */
     public Car(Point2D initialPosition,int[] layers) {
 
         super(CAR_RADIUS);
@@ -56,8 +64,11 @@ public class Car extends Circle implements Drivable{
 
     }
 
-
-
+    /**
+     *
+     * @param angle
+     * @param speed
+     */
     public void update(double angle, double speed) {
 
         this.setRotate(this.getRotate() + angle * ANGULAR_VELOCITY);
@@ -88,40 +99,69 @@ public class Car extends Circle implements Drivable{
         return result;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public Sensor[] getSensorArray() {
         return sensorArray;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public NeuralNetwork getBrain() {
         return brain;
     }
 
+    /**
+     *
+     * @param brain
+     */
     public void setBrain(NeuralNetwork brain) {
         this.brain = brain;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getFitnessScore() {
 
         return this.fitnessScore;
     }
 
+    /**
+     *
+     * @param score
+     */
     public void setFitnessScore(int score) {
 
         this.fitnessScore = score;
 
     }
     
-    
+    /**
+     *
+     * @param ANGULAR_VELOCITY
+     */
     public static void setANGULAR_VELOCITY(double ANGULAR_VELOCITY) {
         Car.ANGULAR_VELOCITY = ANGULAR_VELOCITY;
     }
 
+    /**
+     *
+     * @param VELOCITY
+     */
     public static void setVELOCITY(double VELOCITY) {
         Car.VELOCITY = VELOCITY;
     }
 
+    /**
+     *
+     * @param learningRate
+     */
     public static void setLearningRate(float learningRate) {
         Car.LEARNING_RATE = learningRate;
     }

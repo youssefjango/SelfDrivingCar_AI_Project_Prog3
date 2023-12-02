@@ -2,6 +2,10 @@
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ *
+ * Class which consists of the hidden layer used in the machine learning model.
+ */
 public class HiddenLayer {
 
     private double[][] weights;
@@ -10,6 +14,11 @@ public class HiddenLayer {
 
     private Random random = new Random();
 
+    /**
+     *
+     * @param currentLayerSize
+     * @param previousLayerSize
+     */
     public HiddenLayer(int currentLayerSize, int previousLayerSize) {
         this.currentLayerSize = currentLayerSize;
         this.previousLayerSize = previousLayerSize;
@@ -17,6 +26,10 @@ public class HiddenLayer {
         initRandom();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public HiddenLayer clone() {
         HiddenLayer hiddenLayer = new HiddenLayer(this.currentLayerSize, this.previousLayerSize);
@@ -29,6 +42,10 @@ public class HiddenLayer {
         return hiddenLayer;
     }
 
+    /**
+     *
+     * @param learningRate
+     */
     public void mutate(float learningRate) {
         for (int i = 0; i < currentLayerSize; i++) {
             for (int j = 0; j < previousLayerSize; j++) {
@@ -48,6 +65,11 @@ public class HiddenLayer {
         }
     }
 
+    /**
+     *
+     * @param input
+     * @return
+     */
     public double[] activate(double[] input) {
         double[] output = new double[weights.length];
         for (int i = 0; i < weights.length; i++) {
@@ -57,6 +79,10 @@ public class HiddenLayer {
         return output;
     }
 
+    /**
+     *
+     * @return
+     */
     public String toString() {
         String ret = "[";
 
@@ -70,6 +96,10 @@ public class HiddenLayer {
         return ret;
     }
 
+    /**
+     *
+     * @return
+     */
     public double[][] getWeights() {
         return weights;
     }

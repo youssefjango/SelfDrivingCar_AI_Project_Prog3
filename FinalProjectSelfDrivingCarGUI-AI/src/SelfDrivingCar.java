@@ -18,16 +18,20 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @author 2278304
+ * This class consists of the main class that runs our whole project
  */
 public class SelfDrivingCar extends Application {
 
 
     static Stage stage;
 
+    /**
+     *
+     * @param primaryStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Label title = new Label("Interface Visualizations");
 
 
         stage = primaryStage;
@@ -41,7 +45,10 @@ public class SelfDrivingCar extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

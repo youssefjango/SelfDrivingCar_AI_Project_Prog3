@@ -27,7 +27,8 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author YOUSSEF
+ * This class consists of the components that are in the primary pane for our
+ * project most of the UI/UX components can be found here.
  */
 public class Simulation {
 
@@ -660,8 +661,10 @@ public class Simulation {
     }
 
     /**
+     * sets the mediaplayer used in the application
      *
      * @param player
+     *
      */
     public void setPlayer(MediaPlayer player) {
         this.player = player;
@@ -746,7 +749,8 @@ public class Simulation {
 
     /**
      *
-     * @return
+     * @return the volume desired by the user and other variables that sliders
+     * contain.
      */
     public Slider getVolumeSlider() {
         return volumeSlider;
@@ -754,7 +758,7 @@ public class Simulation {
 
     /**
      *
-     * @return
+     * @return the main root of the application
      */
     public BorderPane getRoot() {
         root.setStyle("-fx-background-color:grey");
@@ -764,17 +768,19 @@ public class Simulation {
 
     /**
      *
-     * @return
+     * @return bordersList(the borders of the race track)
      */
     public ArrayList<Shape> getBordersList() {
         return bordersList;
     }
 
-    //public void setBorders(Line[] x ) {this.borders = x;}
-    //style settings to make the buttons turn grey when mouse is hovering over it and goes back to normal when the mouse is no longer on top of it.
+    //
     /**
+     * style settings to make the buttons turn grey when mouse is hovering over
+     * it and goes back to normal when the mouse is no longer on top of it.
      *
      * @param button
+     *
      */
     public void highlightButton(Button button) {
         button.setOnMouseEntered(e -> {
@@ -788,13 +794,14 @@ public class Simulation {
 
     class MyTimer extends AnimationTimer {
 
-        double firstTime = 0;
+        long firstTime = 0;
 
         @Override
         public void handle(long l) {
-            double t = l - firstTime;
+
             for (Car car : carList) {
                 if (car.intersects(finishLine.getBoundsInParent())) {
+                    double t = (l / 1000000000) - firstTime;
                     car.setFitnessScore(car.getFitnessScore() + (int) (10000 / t));
                 }
             }
@@ -814,13 +821,14 @@ public class Simulation {
 
         @Override
         public void start() {
-            firstTime = System.currentTimeMillis() / 1000000000;
+
+            System.out.println(firstTime);
             super.start();
         }
     }
 
     /**
-     *
+     *This method checks the data inputed consistantly.
      * @param e
      * @param select
      * @param noCars
@@ -829,6 +837,7 @@ public class Simulation {
      * @param angVelocity
      * @param save
      * @param start
+     * 
      */
     public void checkTextInputs(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
         if (!String.valueOf(e.getCode()).contains("DIGIT")) {
@@ -843,7 +852,7 @@ public class Simulation {
     }
 
     /**
-     *
+     * This method checks the data inputed consistantly.
      * @param e
      * @param select
      * @param noCars
@@ -852,6 +861,7 @@ public class Simulation {
      * @param angVelocity
      * @param save
      * @param start
+     * 
      */
     public void checkTextInputsDecimal(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
         if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("PERIOD")) {
@@ -875,6 +885,7 @@ public class Simulation {
      * @param angVelocity
      * @param save
      * @param start
+     * This method checks the data inputed consistantly.
      */
     public void checkTextInputsComma(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
         if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("COMMA")) {
@@ -891,7 +902,7 @@ public class Simulation {
 
     private void checkMutateValue() {
         try {
-            double value = Double.valueOf(mutRate.getText());
+            double value = Double.parseDouble(mutRate.getText());
 
             if (value < 0 || value >= 1) {
                 showAlert("Invalid Mutation Rate", "Please enter a value between 0 and 1.");
@@ -915,7 +926,7 @@ public class Simulation {
     }
 
     /**
-     *
+     * This method sets the fitness score for the learning car AI models.
      */
     public void addFitness() {
 

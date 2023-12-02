@@ -16,21 +16,40 @@ import org.testng.annotations.Test;
  */
 public class HiddenLayerNGTest {
 
+    /**
+     *
+     */
     public HiddenLayerNGTest() {
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     @BeforeMethod
     public void setUpMethod() throws Exception {
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     @AfterMethod
     public void tearDownMethod() throws Exception {
     }

@@ -53,6 +53,8 @@ public class WelcomeController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -97,11 +99,19 @@ public class WelcomeController implements Initializable {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     static public MediaPlayer getPlayer() {
         return player;
     }
     
-
+    /**
+     *
+     * @param slider
+     * @param media
+     */
     public void changeVolume(Slider slider, Media media) {
         player.stop();
         //switches the music
@@ -113,6 +123,11 @@ public class WelcomeController implements Initializable {
     }
 
     //style settings to make the buttons turn grey when mouse is hovering over it and goes back to normal when the mouse is no longer on top of it.
+
+    /**
+     *
+     * @param button
+     */
     public void highlightButton(Button button) {
         button.setOnMouseEntered(e -> {
             button.setStyle("-fx-background-color: grey");

@@ -2,6 +2,10 @@
 
 import java.util.Arrays;
 
+/**
+ *
+ * This class consists of the design of the neuralNetwork used for our project.
+ */
 public class NeuralNetwork {
 
     private HiddenLayer[] hiddenLayers;
@@ -9,6 +13,11 @@ public class NeuralNetwork {
     private float learningRate; // Mutation Rate
     private int[] layers;
 
+    /**
+     *
+     * @param learningRate
+     * @param layers
+     */
     public NeuralNetwork(float learningRate, int[] layers) {
 
         this.learningRate = learningRate;
@@ -26,6 +35,10 @@ public class NeuralNetwork {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public NeuralNetwork clone() {
 
@@ -39,7 +52,11 @@ public class NeuralNetwork {
         return neuralNetwork;
     }
 
-
+    /**
+     *
+     * @param input
+     * @return
+     */
     public double[] predict(double[] input) {
 
         activations[0] = input;
@@ -49,25 +66,43 @@ public class NeuralNetwork {
         return activations[activations.length - 1];
     }
 
+    /**
+     *
+     */
     public void mutate() {
         for (HiddenLayer layer : this.hiddenLayers) {
             layer.mutate(this.learningRate);
         }
     }
 
-
-
+    /**
+     *
+     * @return
+     */
     public double[][] getActivations() {
         return activations;
     }
 
+    /**
+     *
+     * @return
+     */
     public HiddenLayer[] getHiddenLayers() {
         return hiddenLayers;
     }
 
+    /**
+     *
+     * @return
+     */
     public int[] getLayers() {
         return this.layers;
     }
+
+    /**
+     *
+     * @return
+     */
     public String toString() {
         String ret = "learning rate : " + this.learningRate + "\n";
         ret += "Hidden Layers : " + Arrays.toString(this.hiddenLayers) + "\n";
