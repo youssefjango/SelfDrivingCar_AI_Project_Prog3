@@ -16,10 +16,14 @@ public void testClone() *of the hiddenlayer class* ✓
 # Preview of the Project
 main menu:
 ![Capture d’écran (27)](https://github.com/youssefjango/SelfDrivingCar_AI_Project_Prog3/assets/76130774/73d24b47-7307-49f3-8751-4380a45d43d7)
+
 preview of the layout and the different themes available: 
+
 ![image](https://github.com/youssefjango/SelfDrivingCar_AI_Project_Prog3/assets/76130774/76ab5701-0e81-4280-b5ee-487c63973f4d)
 ![image](https://github.com/youssefjango/SelfDrivingCar_AI_Project_Prog3/assets/76130774/903a7ddb-d40d-407a-9675-02df63e88b62)
+
 preview of the required inputs to run the simulation:
+
 ![image](https://github.com/youssefjango/SelfDrivingCar_AI_Project_Prog3/assets/76130774/3e8b9452-96c5-423b-91d4-dc0efed5f14f)
 
 # Contributors
