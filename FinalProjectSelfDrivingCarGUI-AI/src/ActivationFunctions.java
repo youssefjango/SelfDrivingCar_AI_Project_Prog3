@@ -3,7 +3,7 @@
  *
  * CLASS of method used to activate the artificial intelligence model
  */
-public class ActivationFunctions {
+public final class ActivationFunctions {
 
     /**
      * This method is one of the activation methods
