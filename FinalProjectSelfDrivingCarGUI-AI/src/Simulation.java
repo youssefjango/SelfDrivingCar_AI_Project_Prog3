@@ -842,7 +842,6 @@ public class Simulation {
     public void checkTextInputs(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
         if (!String.valueOf(e.getCode()).contains("DIGIT")&& !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
             select.setText("");
-            System.out.println(e.getCode());
             showAlert("Invalid Input", "Please enter a valid input (the values should be numbers).");
         }
         if (!noCars.getText().isEmpty() && !mutRate.getText().isEmpty() && !carSpeed.getText().isEmpty() && !angVelocity.getText().isEmpty() && !neuronsPerLayerTextField.getText().isEmpty()) {
