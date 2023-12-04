@@ -536,8 +536,8 @@ public class Simulation {
             for (int i = 0; i < Integer.parseInt(noCars.getText()); i++) {
                 // Create a car instance
                 Car car = new Car(new Point2D(800, 800), layers); // Provide initial position
-                Car.setANGULAR_VELOCITY(Double.parseDouble(angVelocity.getText()));
-                Car.setVELOCITY(Double.parseDouble(carSpeed.getText()));
+                Car.setAngularVelocity(Double.parseDouble(angVelocity.getText()));
+                Car.setVelocity(Double.parseDouble(carSpeed.getText()));
                 car.setFill(Color.rgb((int) sliderRed.getValue(), (int) sliderGreen.getValue(), (int) sliderBlue.getValue()));
 
                 // Add the car's body to the Pane

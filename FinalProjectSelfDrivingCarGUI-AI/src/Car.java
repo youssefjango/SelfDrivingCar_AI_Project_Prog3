@@ -13,14 +13,14 @@ import java.util.Deque;
  */
 public class Car extends Circle implements Drivable{
 
-    private static float LEARNING_RATE = 0.3f;
+    private static float learningRate = 0.3f;
     private static final int CAR_RADIUS = 15;
     
     private static final Color CAR_COLOR = Color.IVORY;
     private static final double MIN_SPEED = 1;
 
-    private static double ANGULAR_VELOCITY = 3;
-    private static double VELOCITY = 3;
+    private static double angularVelocity = 3;
+    private static double velocity = 3;
 
 
     private int fitnessScore;
@@ -60,7 +60,7 @@ public class Car extends Circle implements Drivable{
 
         int[] allLayersArray = allLayersList.stream().mapToInt(Integer::intValue).toArray();
 
-        this.brain = new NeuralNetwork(LEARNING_RATE, allLayersList.stream().mapToInt(Integer::intValue).toArray());
+        this.brain = new NeuralNetwork(learningRate, allLayersList.stream().mapToInt(Integer::intValue).toArray());
 
     }
 
@@ -71,9 +71,9 @@ public class Car extends Circle implements Drivable{
      */
     public void update(double angle, double speed) {
 
-        this.setRotate(this.getRotate() + angle * ANGULAR_VELOCITY);
-        double deltaX = VELOCITY *  Math.max(Math.abs(speed), MIN_SPEED) * Math.cos(Math.toRadians(this.getRotate()));
-        double deltaY = VELOCITY *  Math.max(Math.abs(speed), MIN_SPEED) * Math.sin(Math.toRadians(this.getRotate()));
+        this.setRotate(this.getRotate() + angle * angularVelocity);
+        double deltaX = velocity *  Math.max(Math.abs(speed), MIN_SPEED) * Math.cos(Math.toRadians(this.getRotate()));
+        double deltaY = velocity *  Math.max(Math.abs(speed), MIN_SPEED) * Math.sin(Math.toRadians(this.getRotate()));
         this.setCenterX(this.getCenterX() - deltaX);
         this.setCenterY(this.getCenterY() - deltaY);
 
@@ -144,18 +144,18 @@ public class Car extends Circle implements Drivable{
     
     /**
      *
-     * @param ANGULAR_VELOCITY
+     * @param angularVelocity
      */
-    public static void setANGULAR_VELOCITY(double ANGULAR_VELOCITY) {
-        Car.ANGULAR_VELOCITY = ANGULAR_VELOCITY;
+    public static void setAngularVelocity(double angularVelocity) {
+        Car.angularVelocity = angularVelocity;
     }
 
     /**
      *
-     * @param VELOCITY
+     * @param velocity
      */
-    public static void setVELOCITY(double VELOCITY) {
-        Car.VELOCITY = VELOCITY;
+    public static void setVelocity(double velocity) {
+        Car.velocity = velocity;
     }
 
     /**
@@ -163,6 +163,6 @@ public class Car extends Circle implements Drivable{
      * @param learningRate
      */
     public static void setLearningRate(float learningRate) {
-        Car.LEARNING_RATE = learningRate;
+        Car.learningRate = learningRate;
     }
 }
