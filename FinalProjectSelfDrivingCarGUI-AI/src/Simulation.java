@@ -828,7 +828,7 @@ public class Simulation {
     }
 
     /**
-     *This method checks the data inputed consistantly.
+     *This method checks the data entered constantly.
      * @param e
      * @param select
      * @param noCars
@@ -840,8 +840,9 @@ public class Simulation {
      * 
      */
     public void checkTextInputs(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
-        if (!String.valueOf(e.getCode()).contains("DIGIT")) {
+        if (!String.valueOf(e.getCode()).contains("DIGIT")&& !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
             select.setText("");
+            System.out.println(e.getCode());
             showAlert("Invalid Input", "Please enter a valid input (the values should be numbers).");
         }
         if (!noCars.getText().isEmpty() && !mutRate.getText().isEmpty() && !carSpeed.getText().isEmpty() && !angVelocity.getText().isEmpty() && !neuronsPerLayerTextField.getText().isEmpty()) {
@@ -852,7 +853,7 @@ public class Simulation {
     }
 
     /**
-     * This method checks the data inputed consistantly.
+     * This method checks the data entered constantly.
      * @param e
      * @param select
      * @param noCars
@@ -864,7 +865,7 @@ public class Simulation {
      * 
      */
     public void checkTextInputsDecimal(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
-        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("PERIOD")) {
+        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("PERIOD")&& !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
             select.setText("");
         }
         if (!noCars.getText().isEmpty() && !mutRate.getText().isEmpty() && !carSpeed.getText().isEmpty() && !angVelocity.getText().isEmpty() && !neuronsPerLayerTextField.getText().isEmpty()) {
@@ -885,10 +886,10 @@ public class Simulation {
      * @param angVelocity
      * @param save
      * @param start
-     * This method checks the data inputed consistantly.
+     * This method checks the data entered constantly.
      */
     public void checkTextInputsComma(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
-        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("COMMA")) {
+        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("COMMA")&& !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
             select.setText("");
             showAlert("Invalid Input", "Please enter a valid input for the number of layers. Each numbers should be separated by a comma");
 
