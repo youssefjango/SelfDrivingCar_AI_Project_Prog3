@@ -90,7 +90,7 @@ Although this button is called "Save settings", it serves as a confirmation butt
 === Elyas
 
 ## 2.16 ***NeuroNetwork***
-![Alt text](https://www.google.com/url?sa=i&url=https%3A%2F%2Ftowardsdatascience.com%2Feverything-you-need-to-know-about-neural-networks-and-backpropagation-machine-learning-made-easy-e5285bc2be3a&psig=AOvVaw2UWbNd8G-CD7T8J_1n1Y0B&ust=1702071930607000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCID8xp2m_oIDFQAAAAAdAAAAABAD)
+![Alt text]([https://www.google.com/url?sa=i&url=https%3A%2F%2Ftowardsdatascience.com%2Feverything-you-need-to-know-about-neural-networks-and-backpropagation-machine-learning-made-easy-e5285bc2be3a&psig=AOvVaw2UWbNd8G-CD7T8J_1n1Y0B&ust=1702071930607000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCID8xp2m_oIDFQAAAAAdAAAAABAD](https://miro.medium.com/v2/resize:fit:1400/1*3fA77_mLNiJTSgZFhYnU0Q.png))
 
 === Elyas
 
