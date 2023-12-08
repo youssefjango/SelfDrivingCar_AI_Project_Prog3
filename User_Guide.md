@@ -121,6 +121,7 @@ In this text field, the user can choose the number of hidden layers and the numb
 
 ## 2.16 ***Neural Network***
 ![image](https://miro.medium.com/v2/resize:fit:720/format:webp/1*3fA77_mLNiJTSgZFhYnU0Q.png)
+![image](https://github.com/youssefjango/SelfDrivingCar_AI_Project_Prog3/assets/145494945/ee6099a6-f242-4456-9a5d-f5720dfa25f0)
 
 This program uses the theory of neural networks and deep learning. In our program, each car has a unique neural network that has an input layer of 7 neurons, an output layer of 2 neurons, and as many hidden layers as desired by the user. The user can even select the number of neurons for each specific hidden layer. At the end of each generation, when all the cars have crashed, the program will set up the next generation by cloning the best car's neural network to all the other cars. Then, all cars except the best one will undergo a small random mutation  that depends on significance based on the mutation rate. This will lead to certain evolution of the cars and eventually perfection of the cars' ability to drive.
 
@@ -131,3 +132,4 @@ If you would like to learn more, please click [here](https://www.ibm.com/topics/
 Due to less-than-optimal frame rates on the Netbeans IDE, the cars may potentially glitch out of the designated racing grounds if the user uses an excessively large speed or angular velocity. If this problem occurs, please press the reset button and use lower inputs or reboot the application. 
 
 *If this problem remains unsolved, please contact our customer service team for further assistance.*
+*Note: all text fields have automatic error detections, meaning they will not permit any illegal characters. For instance, if the user were to type in a letter into any of the text fields, they will receive an alert, which warns them about the problem and erases the input.*
