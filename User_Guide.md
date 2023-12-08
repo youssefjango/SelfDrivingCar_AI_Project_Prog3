@@ -27,7 +27,7 @@
 ![image](https://github.com/youssefjango/SelfDrivingCar_AI_Project_Prog3/assets/76130774/76ab5701-0e81-4280-b5ee-487c63973f4d)
 <br/><br/>
 # 1. ***Project Description***
-    With the use of concepts such as neural networks and machine-based learning, our program creates customizable and autonomous cars that are tasked with completing a race track by speeding up or slowing down along the way in order to make turns and/or move around obstacles in its way. Whenever these vehicles collide with the walls, they will restart from the beginning and learn from their previous mistakes, made possible with the use of mathematical algorithms associated with linear algebra and mechanics motion formulae. 
+With the use of concepts such as neural networks and machine-based learning, our program creates customizable and autonomous cars that are tasked with completing a race track by speeding up or slowing down along the way in order to make turns and/or move around obstacles in its way. Whenever these vehicles collide with the walls, they will restart from the beginning and learn from their previous mistakes, made possible with the use of mathematical algorithms associated with linear algebra and mechanics motion formulae. 
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/>
@@ -39,7 +39,7 @@ Upon pressing the start button on the main menu, the user will gain access to th
 ## 2.1 ***Number of Cars**
 In this text field, the user will need to input the number of cars they would like to create in the racetrack. 
 
-***Warning: creating too many cars will result in slower performance due to java only utilizing one core of the computer.***
+***Warning: creating too many cars will result in slower performance due to Java only utilizing one core of the computer.***
 
 ## 2.2 ***RGB sliders***
 These sliders are used to change the color of the cars that will appear when the user starts the race. By changing these 3 sliders (Red, Green, Blue), the user will be able to obtain any color or shade that they desire. (The color that they create is be shown in the circle to the right of the sliders)
@@ -98,4 +98,5 @@ If you would like to learn more, please click [here](https://www.ibm.com/topics/
 <br/><br/><br/><br/><br/><br/><br/><br/>
 # 3. ***Troubleshooting***
 Due to less-than-optimal frame rates on the Netbeans IDE, the cars may potentially glitch out of the designated racing grounds if the user uses an excessively large speed or angular velocity. If this problem occurs, please press the reset button and use lower inputs or reboot the application. 
+
 *If this problem remains unsolved, please contact our customer service team for further assistance.*
