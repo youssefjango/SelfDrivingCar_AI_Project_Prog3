@@ -15,7 +15,7 @@
 - 2.8 [***Save Settings***](#28-save-settings)
 - 2.9 [***Start Race***](#29-start-race)
 - 2.10 [***Reset***](#210-reset)
-- 2.11 [***Pause***](#211-pauseplay)
+- 2.11 [***Pause/Play***](#211-pauseplay)
 - 2.12 [***Exit***](#212-exit)
 - 2.13 [***Generation***](#213-generation)
 - 2.14 [***Sound***](#214-sound)
