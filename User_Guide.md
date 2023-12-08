@@ -50,7 +50,7 @@ For aesthetic purposes, our program also gives the user the freedom to change th
 *NOTE: changing the location of the race will have no effect on the race*
 
 ## 2.4 ***Mutation Rate***
-   === Elyas
+This texfield takes an input between 0 and 1. Every generations, the best car will give its neural network to all other cars except that a small mutation will happen in the values of the weights for each car's neural network except the best one. The mutation is random and the closer it is to one, the further the new value is from the original for each mutation. So a high mutation rate may show quicker progress in early generations, but a lower mutation rate will achieve more consistent results for all cars once it has learned the proper way of driving.
 
 *Inputting a number that does not respect the range (0-1) will result in an alert pop-up prompting you to use a different value*
 
@@ -72,7 +72,7 @@ Although this button is called "Save settings", it serves as a confirmation butt
 This button will be enabled once all the required text fields have been filled. Upon being pressed, the cars will appear and begin moving towards the finish line. The cars will continue respawning even after finishing the race in order to find the fastest route.
 
 ## 2.10 ***Reset***
-=== Elyas
+The reser buttons resets all values entered by the user and displays all the data entered for this run of the simulation as well as the list of all the best fitness scores per generation in a new temporary window. the user can now reenter all inputs and run the simulation again.
 
 ## 2.11 ***Pause/Play***
 This button will be enabled once the race has begun. Upon being pressed, all cars will cease to move until it is pressed again.
@@ -87,11 +87,13 @@ This uneditable text field serves as a way for the user to keep track of the num
 This slider serves as a way to change the volume of the music playing in the background. Sliding it to the left will decrease the audio and sliding it to the right will increase it.
 
 ## 2.15 ***Neurons Per Layer***
-=== Elyas
+In this textfield, the user can chose the number of hidden layers and the number of neurons for each specific hidden layer. The user simply has to separate the numbers by a comma. 
 
-## 2.16 ***NeuroNetwork***
+## 2.16 ***Neural Network***
 ![image](https://miro.medium.com/v2/resize:fit:720/format:webp/1*3fA77_mLNiJTSgZFhYnU0Q.png)
-=== Elyas
+
+This program uses the theory of neural network and deep-learning. In our program, each car has a unique neural network that has input layer of 7 neurons, an output layer of 2 neurons, and as many hidden layers desired by the user. The user can even select the number of neurons for each specific hidden layer. At the end of each generation, when all the cars have crashes, the program will setup
+the next generation by cloning the best car's neural network to all the other cars. Then, all cars except the best one will undergo a small random mutation  that depends in significance based on the mutation rate. This will lead to certain evolution of the cars and eventually perfection of the cars' ability to drive.
 
 If you would like to learn more, please click [here](https://www.ibm.com/topics/neural-networks).
 
