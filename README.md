@@ -1,5 +1,4 @@
 # SelfDrivingCar_AI_Project_Prog3
-https://github.com/user-attachments/assets/0f6888c3-da21-48a3-82f9-c3b523f3efb3
 
 This is the final project of the GUI course in Computer Science and Mathematics at Vanier College. 
 The purpose of doing this project was more than just learning about GUI, which was done during the entirety of the semister.
