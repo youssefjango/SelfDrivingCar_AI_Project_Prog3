@@ -83,6 +83,7 @@ public class WelcomeController implements Initializable {
             //changes the root of the scene to direct the user to the racetrack
             //applies css code to the Interface scene
             simulation.getRoot().getStylesheets().add("style.css");
+            System.out.println((simulation.getRoot().getStylesheets()));
             //sets up the interface of the racetrack
             simulation.draw();
             //changes the root to change windows

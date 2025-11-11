@@ -17,10 +17,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -36,7 +38,10 @@ public class Simulation {
 
     //TODO remove
     ArrayList<Shape> intersections = new ArrayList();
-
+    double startX = 0;
+    double startY = 0;
+    boolean isPrevClicked = false;
+    Line displayedLine = new Line();
     ArrayList<Integer> fitnessList = new ArrayList();
 
     //creating a timer
@@ -347,58 +352,50 @@ public class Simulation {
         Line lineLeft = new Line(0, 0, 0, 800);
 
         //First Line of the track
-        Line line1 = new Line(0, 0, 0, 500);
-        line1.setTranslateX(200);
-
+        //Line line1 = new Line(0, 0, 0, 500);
+        //line1.setTranslateX(200);
         //Smaller arc on the first turn of the race track
-        Arc firstTurn1 = new Arc(0, 0, 150, 200, 220, 100);
+        /*Arc firstTurn1 = new Arc(0, 0, 150, 200, 220, 100);
         firstTurn1.setType(ArcType.OPEN);
         firstTurn1.setStroke(Color.BLACK);
         firstTurn1.setFill(Color.TRANSPARENT);
         firstTurn1.setTranslateX(315);
-        firstTurn1.setTranslateY(372);
-
+        firstTurn1.setTranslateY(372);*/
         //Bigger turn on the first turn of the race track
         //CANNOT USE ANOTHER ARC BECAUSE IT HAS INVISIBLE COLLISIONS, NOT ONLY ON THE VISIBLE PART OF THE ARC.
         //first part of the turn
-        Line firstTurn2Part1 = new Line(0, 664, 200, 800);
+        //Line firstTurn2Part1 = new Line(0, 664, 200, 800);
         //second part of the turn
-        Line firstTurn2Part2 = new Line(200, 800, 430, 800);
+        //Line firstTurn2Part2 = new Line(200, 800, 430, 800);
         //third part of the turn
-        Line firstTurn2Part3 = new Line(430, 800, 632, 664);
-
+        //Line firstTurn2Part3 = new Line(430, 800, 632, 664);
         //Second Line of the track
-        Line line2 = new Line(0, 0, 0, 400);
-        line2.setTranslateX(430);
-        line2.setTranslateY(100);
-
+        //Line line2 = new Line(0, 0, 0, 400);
+        // line2.setTranslateX(430);
+        //line2.setTranslateY(100);
         //Smaller arc on the second turn of the race track
-        Arc secondturn1 = new Arc(0, 0, 44, 40, 400, 100);
-        secondturn1.setType(ArcType.OPEN);
-        secondturn1.setStroke(Color.BLACK);
-        secondturn1.setFill(Color.TRANSPARENT);
-        secondturn1.setTranslateX(666);
-        secondturn1.setTranslateY(253);
-
+        //Arc secondturn1 = new Arc(0, 0, 44, 40, 400, 100);
+        //secondturn1.setType(ArcType.OPEN);
+        // secondturn1.setStroke(Color.BLACK);
+        //secondturn1.setFill(Color.TRANSPARENT);
+        // secondturn1.setTranslateX(666);
+        //secondturn1.setTranslateY(253);
         //Bigger arc on the second turn of the race track
         //CANNOT USE ANOTHER ARC BECAUSE IT HAS INVISIBLE COLLISIONS, NOT ONLY ON THE VISIBLE PART OF THE ARC.
         //first part of the turn
-        Line secondturn2Part1 = new Line(430, 100, 632, 0);
+        //Line secondturn2Part1 = new Line(430, 100, 632, 0);
         //second part of the turn
-        Line secondturn2Part2 = new Line(632, 0, 698, 0);
+        //Line secondturn2Part2 = new Line(632, 0, 698, 0);
         //third part of the turn
-        Line secondturn2Part3 = new Line(698, 0, 900, 100);
-
+        //Line secondturn2Part3 = new Line(698, 0, 900, 100);
         //Third Line of the track
-        Line line3 = new Line(0, 0, 0, 436);
-        line3.setTranslateX(632);
-        line3.setTranslateY(228);
-
+        //Line line3 = new Line(0, 0, 0, 436);
+        //line3.setTranslateX(632);
+        //line3.setTranslateY(228);
         //Fourth Line of the track
-        Line line4 = new Line(0, 0, 0, 570);
-        line4.setTranslateX(700);
-        line4.setTranslateY(228);
-
+        //Line line4 = new Line(0, 0, 0, 570);
+        //line4.setTranslateX(700);
+        //line4.setTranslateY(228);
         //Right wall line of the track
         Line lineRight = new Line(0, 0, 0, 800);
         lineRight.setTranslateX(900);
@@ -410,23 +407,64 @@ public class Simulation {
 
         //Makes a wall behind the finish line
         Line finishWall = new Line(0, 0, 900, 0);
+        displayedLine.setStrokeWidth(10);
+        displayedLine.setFill(Color.RED);
         //ADDING THE SHAPES TO THE CAR PANE FOR MAKING THE RACE TRACK
-        carPane.getChildren().addAll(startWall, startPoint, finishLine, lineLeft, line1, firstTurn1, firstTurn2Part1, firstTurn2Part2, firstTurn2Part3, line2, secondturn1, secondturn2Part1, secondturn2Part2, secondturn2Part3, line3, line4, lineRight, finishWall);
-        //carPane.setStyle("-fx-background-image: url(\"/Images/grassBackground.jpg\");");
+        carPane.getChildren().addAll(startWall, startPoint, finishLine, lineLeft, displayedLine, /*line1, /*firstTurn1,/* firstTurn2Part1, firstTurn2Part2, firstTurn2Part3, line2, secondturn1,/* secondturn2Part1, secondturn2Part2, secondturn2Part3, line3, line4,*/ lineRight, finishWall);
+        
         bordersList.add(startWall);
         bordersList.add(lineLeft);
-        bordersList.add(line1);
-        bordersList.add(line2);
-        bordersList.add(line3);
-        bordersList.add(line4);
-        bordersList.add(firstTurn1);
-        bordersList.add(firstTurn2Part1);
-        bordersList.add(firstTurn2Part2);
-        bordersList.add(firstTurn2Part3);
-        bordersList.add(secondturn1);
-        bordersList.add(secondturn2Part1);
-        bordersList.add(secondturn2Part2);
-        bordersList.add(secondturn2Part3);
+        this.carPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent e) {
+                if (isPrevClicked) {
+                    displayedLine.setStartX(0);
+                    displayedLine.setStartY(0);
+                    displayedLine.setEndX(0);
+                    displayedLine.setEndX(0);
+                    Line line = new Line(startX, startY, e.getX(), e.getY());
+
+                    line.setStrokeWidth(10);
+                    carPane.getChildren().add(line);
+                    bordersList.add(line);
+                    borders = Shape.union(borders, bordersList.get(bordersList.size() - 1));
+
+                    isPrevClicked = false;
+                } else {
+                    startX = e.getX();
+                    startY = e.getY();
+                    displayedLine.setStartX(startX);
+                    displayedLine.setStartY(startY);
+                    displayedLine.setEndX(startX);
+                    displayedLine.setEndY(startY);
+                    isPrevClicked = true;
+                }
+            }
+        });
+        this.carPane.setOnMouseMoved(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+                if (isPrevClicked) {
+                    displayedLine.setEndX(e.getX());
+                    displayedLine.setEndY(e.getY());
+                }
+            }
+
+        });
+        //bordersList.add(line1);
+        //bordersList.add(line2);
+        //bordersList.add(line3);
+        //bordersList.add(line4);
+        //bordersList.add(firstTurn1);
+        //bordersList.add(firstTurn2Part1);
+        // bordersList.add(firstTurn2Part2);
+        // bordersList.add(firstTurn2Part3);
+        //  bordersList.add(secondturn1);
+        //bordersList.add(secondturn2Part1);
+        //bordersList.add(secondturn2Part2);
+        // bordersList.add(secondturn2Part3);
         bordersList.add(lineRight);
         bordersList.add(finishWall);
 
@@ -828,7 +866,8 @@ public class Simulation {
     }
 
     /**
-     *This method checks the data entered constantly.
+     * This method checks the data entered constantly.
+     *
      * @param e
      * @param select
      * @param noCars
@@ -837,10 +876,10 @@ public class Simulation {
      * @param angVelocity
      * @param save
      * @param start
-     * 
+     *
      */
     public void checkTextInputs(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
-        if (!String.valueOf(e.getCode()).contains("DIGIT")&& !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
+        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
             select.setText("");
             showAlert("Invalid Input", "Please enter a valid input (the values should be numbers).");
         }
@@ -853,6 +892,7 @@ public class Simulation {
 
     /**
      * This method checks the data entered constantly.
+     *
      * @param e
      * @param select
      * @param noCars
@@ -861,10 +901,10 @@ public class Simulation {
      * @param angVelocity
      * @param save
      * @param start
-     * 
+     *
      */
     public void checkTextInputsDecimal(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
-        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("PERIOD")&& !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
+        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("PERIOD") && !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
             select.setText("");
         }
         if (!noCars.getText().isEmpty() && !mutRate.getText().isEmpty() && !carSpeed.getText().isEmpty() && !angVelocity.getText().isEmpty() && !neuronsPerLayerTextField.getText().isEmpty()) {
@@ -884,11 +924,10 @@ public class Simulation {
      * @param carSpeed
      * @param angVelocity
      * @param save
-     * @param start
-     * This method checks the data entered constantly.
+     * @param start This method checks the data entered constantly.
      */
     public void checkTextInputsComma(KeyEvent e, TextField select, TextField noCars, TextField mutRate, TextField carSpeed, TextField angVelocity, Button save, Button start) {
-        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("COMMA")&& !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
+        if (!String.valueOf(e.getCode()).contains("DIGIT") && !String.valueOf(e.getCode()).contains("COMMA") && !String.valueOf(e.getCode()).contains("BACK_SPACE")) {
             select.setText("");
             showAlert("Invalid Input", "Please enter a valid input for the number of layers. Each numbers should be separated by a comma");
 
